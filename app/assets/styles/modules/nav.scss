@@ -1,0 +1,28 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: $nav-width;
+  padding: $nav-padding;
+  height: 100%;
+  border-right: 1px solid #ccc;
+
+  &-list {
+    margin: 0;
+    list-style: none;
+  }
+
+  &-item {
+    margin-bottom: 20px;
+  }
+
+  &-link {
+    display: block;
+    text-align: center;
+  }
+
+  &-icon {
+    display: block;
+    margin-bottom: 5px;
+  }
+}

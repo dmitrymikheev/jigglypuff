@@ -1,0 +1,10 @@
+{
+  "emails": [
+    { "id": 1, "title": "Lorem ipsum.", "author": "Lorem." },
+    { "id": 1, "title": "Lorem ipsum.1", "author": "Lorem2." },
+    { "id": 1, "title": "Lorem ipsum.2", "author": "Lorem3." },
+    { "id": 1, "title": "Lorem ipsum.3", "author": "Lorem4." },
+    { "id": 1, "title": "Lorem ipsum.4", "author": "Lorem5." },
+    { "id": 1, "title": "Lorem ipsum.5", "author": "Lorem6." }
+  ]
+}
