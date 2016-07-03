@@ -1,6 +1,5 @@
 import h from 'virtual-dom/h';
-import ComponentFactory from '../componentFactory';
-import History from '../history';
+import Router from '../router';
 
 export default class Link {
   constructor(children, props) {
@@ -15,14 +14,20 @@ export default class Link {
     return h('a', {
       className: props.className,
       href: props.href,
-      onclick: (event) => {
-        const url = event.target.getAttribute('href');
-        console.log(url);
-        history.pushState({}, '', url)
-        History.getComponent(url);
-        // debugger
-        event.preventDefault();
-      }
+      onclick: this.onClick,
     }, this.children);
+  }
+
+  onClick(event) {
+    event.preventDefault();
+    let target = event.target;
+    let path = event.target.href;
+
+    while(!path && target) {
+      target = event.target.parentElement;
+      path = target.href;
+    }
+
+    Router.go(path);
   }
 }

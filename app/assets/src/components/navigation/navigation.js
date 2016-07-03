@@ -39,9 +39,11 @@ export default class Navigation {
       h('ul.nav-list', [
         navigationItems.map((item) => {
           return h('li.nav-item', [
-            new Link(
-              [h(`i.nav-icon.fa.fa-${item.icon}`),item.text],
-              { className: 'nav-link', href: item.href }
+            new Link([h(`i.nav-icon.fa.fa-${item.icon}`), item.text],
+              {
+                className: 'nav-link',
+                href: item.href
+              }
             )
           ]);
         })

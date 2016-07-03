@@ -60,7 +60,7 @@
     "minifyify": "^7.3.3",
     "mocha": "~1.17.1",
     "mocha-lcov-reporter": "0.0.1",
-    "qwest": "^4.4.3",
+    "qwest": "^4.4.4",
     "redux": "^3.5.2",
     "require-dir": "^0.3.0",
     "vinyl-source-stream": "^1.1.0",
