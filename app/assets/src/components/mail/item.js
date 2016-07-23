@@ -7,8 +7,6 @@ class Item {
   }
 
   render() {
-    console.log(this.options)
-    debugger
     return h('.item', [this.options.title]);
   }
 }

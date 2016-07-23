@@ -20,13 +20,7 @@ export default class Link {
 
   onClick(event) {
     event.preventDefault();
-    let target = event.target;
-    let path = event.target.href;
-
-    while(!path && target) {
-      target = event.target.parentElement;
-      path = target.href;
-    }
+    const path = event.currentTarget.href;
 
     Router.go(path);
   }

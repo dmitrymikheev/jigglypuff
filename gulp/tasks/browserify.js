@@ -21,12 +21,13 @@ gulp.task('browserify', () => {
     extensions: ['.js'],
     entries: entryPoint,
     paths: [
-      './app/src/'
+      './app/assets/src/'
     ]
   })
   .transform(babelify.configure({
     presets: ['es2015'],
-    sourceMapRelative: './app/'
+    plugins: ['transform-decorators-legacy'],
+    sourceMapRelative: 'app/'
   }));
 
   const bundle = () => {

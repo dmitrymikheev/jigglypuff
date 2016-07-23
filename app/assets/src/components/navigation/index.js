@@ -26,7 +26,7 @@ const navigationItems = [
 ];
 
 export default class Navigation {
-  constructor() {
+  constructor(props) {
     return this.render();
   }
 
