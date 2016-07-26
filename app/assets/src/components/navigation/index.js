@@ -1,27 +1,27 @@
 import h from 'virtual-dom/h';
 import createElement from 'virtual-dom/create-element';
-import Link from '../link';
+import Link from 'components/link';
 
 const navigationItems = [
   {
     icon: 'inbox',
     text: 'Inbox',
-    href: '/inbox'
+    href: 'mail'
   },
   {
     icon: 'files-o',
     text: 'Draft',
-    href: '/draft'
+    href: 'mail'
   },
   {
     icon: 'star-o',
     text: 'Starred',
-    href: '/starred'
+    href: 'mail'
   },
   {
     icon: 'trash-o',
     text: 'Deleted',
-    href: '/deleted'
+    href: 'mail'
   }
 ];
 

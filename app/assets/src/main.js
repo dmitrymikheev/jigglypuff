@@ -1,7 +1,10 @@
-import App from './components/app';
+import App from 'application';
+import MailList from 'components/mail';
+import HomePage from 'components/home';
 
 (() => {
-  const app = new App();
-
-  app.init();
+  App.init([
+    { url: '', component: HomePage },
+    { url: 'mail', component: MailList }
+  ]);
 })();

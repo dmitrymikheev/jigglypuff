@@ -25,7 +25,7 @@ export function fetchMails() {
 }
 
 export function shouldFetchMails(state) {
-  return !state.mail.items.length;
+  return !state.mail.items.length && !state.mail.isFetching;
 }
 
 export function fetchMailsIfNeed() {

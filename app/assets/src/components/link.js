@@ -1,5 +1,5 @@
 import h from 'virtual-dom/h';
-import Router from '../router';
+import Router from 'router';
 
 export default class Link {
   constructor(children, props) {
