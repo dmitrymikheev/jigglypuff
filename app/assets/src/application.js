@@ -12,6 +12,7 @@ import Router from 'router';
 
 class App {
   init(components) {
+    Router.parseRoutes(components);
     this.components = components;
     this.tree = this.render();
     this.rootNode = createElement(this.tree);
@@ -29,14 +30,14 @@ class App {
     return h('.container', [
       new Header,
       new Navigation,
-      new this.children
+      this.children
     ]);
   }
 
   defineChildren(components) {
     const fragment = Router.fragment();
-    const children = components.find(component => component.url === fragment);
-    this.children = children ? children.component : HomePage;
+    const component = Router.getCurrentComponent();
+    this.children = component ? component : new HomePage;
   }
 
   update() {

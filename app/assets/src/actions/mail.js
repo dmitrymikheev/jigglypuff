@@ -13,25 +13,35 @@ export function receiveMails(mails) {
   }
 }
 
-export function fetchMails() {
+export function fetchMails(type) {
   return dispatch => {
     dispatch(requestMails());
 
-    return qwest.get('http://localhost:3000/emails')
+    return qwest.get('http://localhost:3000/emails', {
+      type
+    })
      .then(function(xhr, response) {
         return dispatch(receiveMails(response));
      });
   };
 }
 
-export function shouldFetchMails(state) {
-  return !state.mail.items.length && !state.mail.isFetching;
+export function shouldFetchMails(state, type) {
+  const items = state.mail.items;
+  if (!items.length && !state.mail.isFetching) {
+    return true;
+  } else if (items.length && !state.mail.isFetching) {
+    return items.some(item => item.type !== type)
+  }
+
+  return false;
 }
 
-export function fetchMailsIfNeed() {
+export function fetchMailsIfNeed(type) {
+  console.log(type);
   return (dispatch, getState) => {
-    if (shouldFetchMails(getState())) {
-      return dispatch(fetchMails());
+    if (shouldFetchMails(getState(), type)) {
+      return dispatch(fetchMails(type));
     } else {
       return Promise.resolve();
     }

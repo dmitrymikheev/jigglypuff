@@ -5,6 +5,6 @@ import HomePage from 'components/home';
 (() => {
   App.init([
     { url: '', component: HomePage },
-    { url: 'mail', component: MailList }
+    { url: 'mail/:type', component: MailList }
   ]);
 })();

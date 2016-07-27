@@ -6,22 +6,22 @@ const navigationItems = [
   {
     icon: 'inbox',
     text: 'Inbox',
-    href: 'mail'
+    href: 'mail/inbox'
   },
   {
     icon: 'files-o',
     text: 'Draft',
-    href: 'mail'
+    href: 'mail/drafts'
   },
   {
     icon: 'star-o',
     text: 'Starred',
-    href: 'mail'
+    href: 'mail/starred'
   },
   {
     icon: 'trash-o',
     text: 'Deleted',
-    href: 'mail'
+    href: 'mail/deleted'
   }
 ];
 

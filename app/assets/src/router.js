@@ -9,14 +9,12 @@ class Router {
   }
 
   go(path) {
-    window.history.pushState(null, null, path);
+    window.history.pushState('pek', 'kek', path);
     this.onChange(path);
   }
 
   onChange(path) {
     App.update();
-    // this.fragment();
-    // this.check();
   }
 
   clearSlashes(path) {
@@ -30,6 +28,48 @@ class Router {
     fragment = this.root != '/' ? fragment.replace(this.root, '') : fragment;
 
     return this.clearSlashes(fragment);
+  }
+
+  parseRoutes(routes) {
+    this.routes = routes.map(route => {
+      const fragment = this.fragment();
+      const fullRoute = route.url;
+      const url = this.parseUrl(route.url);
+      const param = this.getParam(route.url);
+      const component = route.component;
+
+      return {
+        url,
+        param,
+        component,
+        fullRoute
+      }
+    });
+  }
+
+  getCurrentComponent() {
+    const fragment = this.fragment();
+    const currentRoute = this.routes.find(route => {
+      if (route.url.length && fragment.indexOf(route.url) !== -1) return route.component;
+    });
+
+    if (currentRoute) {
+      const params = fragment.replace(`${currentRoute.url}/`, '');
+      return new currentRoute.component(params);
+    }
+  }
+
+  parseUrl(route) {
+    const discardParams = /\/\:([a-zA-Z_$][a-zA-Z0-9_$]*)/g;
+
+    return route.replace(discardParams, '')
+  }
+
+  getParam(route) {
+    const regex = /:([a-zA-Z_$][a-zA-Z0-9_$]*)/g;
+    const matches = regex.exec(route);
+
+    return matches && matches[1];
   }
 
   add(routes) {

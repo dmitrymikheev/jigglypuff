@@ -3,20 +3,16 @@ import Thunk from 'vdom-thunk';
 import Router from 'router';
 import Item from './item';
 import App from 'application';
-import { showMails, fetchMailsIfNeed } from 'actions/mail';
+import { fetchMailsIfNeed } from 'actions/mail';
 import mailStore from 'stores/mail';
 
 class List {
-  constructor() {
+  constructor(params) {
     this.type = "Thunk";
-    this.items = mailStore.getState().mail.items;
-    console.log(this.items);
-    // let unsubscribe = mailStore.subscribe(() => {
-    //   this.items = mailStore.getState().mail.items;
-    // });
-    mailStore.dispatch(fetchMailsIfNeed()).then(() => {
-      // App.update();
-    });
+    this.state = mailStore.getState().mail;
+    this.items = this.state.items;
+    mailStore.dispatch(fetchMailsIfNeed(params));
+
     return Thunk(this.render, this.items);
   }
 
