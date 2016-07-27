@@ -1,27 +1,25 @@
 .nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: $nav-width;
-  padding: $nav-padding;
+  width: 100px;
   height: 100%;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid $border-color;
 
   &-list {
     margin: 0;
+    padding: 0;
     list-style: none;
   }
 
   &-item {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
   &-link {
+    padding: 10px 0;
     display: block;
     text-align: center;
   }
 
-  &-icon {
+  &-icon.fa {
     display: block;
     margin-bottom: 5px;
   }

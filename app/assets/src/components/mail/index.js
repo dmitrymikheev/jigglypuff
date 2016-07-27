@@ -17,7 +17,11 @@ class List {
   }
 
   render(items) {
-    return h('.list', items.map(item => new Item(item)));
+    return (
+      h('.container', [
+        h('.list', items.map(item => new Item(item)))
+      ])
+    );
   }
 }
 

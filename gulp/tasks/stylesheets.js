@@ -10,13 +10,9 @@ dotenv.load();
 const dev = process.env.NODE_ENV === 'development';
 
 gulp.task('scss',() => {
-  return gulp.src('./app/assets/styles/app.scss')
+  gulp.src('./app/assets/styles/app.scss')
     .pipe(plumber())
-    .pipe(scss({
-      includePaths: [
-        './node_modules/foundation-sites/scss/'
-      ]
-    }))
+    .pipe(scss())
     .pipe(autoprefixer('last 2 version'))
     .pipe(gulpif(!dev, minifyCss()))
     .pipe(gulp.dest('./app/dist/styles/'))

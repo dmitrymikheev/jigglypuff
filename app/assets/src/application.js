@@ -27,11 +27,15 @@ class App {
   render() {
     this.defineChildren(this.components);
 
-    return h('.container', [
-      new Header,
-      new Navigation,
-      this.children
-    ]);
+    return (
+      h('.app', [
+        new Header,
+        h('.wrapper', [
+          new Navigation,
+          this.children
+        ])
+      ])
+    );
   }
 
   defineChildren(components) {
