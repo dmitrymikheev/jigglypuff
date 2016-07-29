@@ -6,6 +6,7 @@ var app = express();
 app.set('port', (process.env.PORT || 1337));
 
 app.use('/', express.static(path.join(__dirname, 'app/dist')));
+app.use('*', express.static(path.join(__dirname, 'app/dist')));
 
 app.use('*', express.static(path.join(__dirname, 'app/dist/index.html')));
 

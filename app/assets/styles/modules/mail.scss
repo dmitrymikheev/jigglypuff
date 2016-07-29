@@ -1,0 +1,11 @@
+.mail {
+  margin: 0 -15px;
+  padding: 0;
+  list-style: none;
+
+  &-link {
+    display: flex;
+    padding: 15px;
+    border-bottom: 1px solid $border-color;
+  }
+}

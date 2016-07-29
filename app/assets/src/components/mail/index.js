@@ -11,7 +11,7 @@ class List {
     this.type = "Thunk";
     this.state = mailStore.getState().mail;
     this.items = this.state.items;
-    mailStore.dispatch(fetchMailsIfNeed(params));
+    mailStore.dispatch(fetchMailsIfNeed(params[0]));
 
     return Thunk(this.render, this.items);
   }
@@ -19,7 +19,7 @@ class List {
   render(items) {
     return (
       h('.container', [
-        h('.list', items.map(item => new Item(item)))
+        h('ul.mail', items.map(item => new Item(item)))
       ])
     );
   }

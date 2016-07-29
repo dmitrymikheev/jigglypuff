@@ -4,12 +4,11 @@ import App from 'application';
 
 class Router {
   constructor() {
-    this.root = '/';
     this.routes = [];
   }
 
   go(path) {
-    window.history.pushState('pek', 'kek', path);
+    window.history.pushState(null, null, path);
     this.onChange(path);
   }
 
@@ -22,75 +21,41 @@ class Router {
   }
 
   fragment() {
-    let fragment = '';
-    fragment = this.clearSlashes(decodeURI(location.pathname + location.search));
-    fragment = fragment.replace(/\?(.*)$/, '');
-    fragment = this.root != '/' ? fragment.replace(this.root, '') : fragment;
-
-    return this.clearSlashes(fragment);
+    return this.clearSlashes(decodeURI(location.pathname));
   }
 
-  parseRoutes(routes) {
-    this.routes = routes.map(route => {
-      const fragment = this.fragment();
-      const fullRoute = route.url;
-      const url = this.parseUrl(route.url);
-      const param = this.getParam(route.url);
-      const component = route.component;
+  addRoutes(routes) {
+    routes.map(route => {
+      this.routes.push(this.createRoute(route, route.child));
 
-      return {
-        url,
-        param,
-        component,
-        fullRoute
+      if (route.child) {
+        // this.addRoutes([route.children]);
       }
     });
+
+    console.log(this.routes);
   }
 
-  getCurrentComponent() {
-    const fragment = this.fragment();
-    const currentRoute = this.routes.find(route => {
-      if (route.url.length && fragment.indexOf(route.url) !== -1) return route.component;
-    });
+  createRoute(route, child = null) {
+    route = {
+      pattern: new RegExp(`^${ route.url.replace(/:\w+/g, '(\\w+)') }$`),
+      component: route.component
+    };
 
-    if (currentRoute) {
-      const params = fragment.replace(`${currentRoute.url}/`, '');
-      return new currentRoute.component(params);
-    }
+    return {
+      ...route,
+      child
+    };
   }
 
-  parseUrl(route) {
-    const discardParams = /\/\:([a-zA-Z_$][a-zA-Z0-9_$]*)/g;
+  getCurrentComponent(path) {
+    let i = this.routes.length;
 
-    return route.replace(discardParams, '')
-  }
+    while ( i-- ) {
+      const args = path.match(this.routes[i].pattern);
 
-  getParam(route) {
-    const regex = /:([a-zA-Z_$][a-zA-Z0-9_$]*)/g;
-    const matches = regex.exec(route);
-
-    return matches && matches[1];
-  }
-
-  add(routes) {
-    routes.map(route => {
-      this.routes.push({
-        url: route.url,
-        component: route.component
-      });
-    });
-    console.log(this.routes)
-  }
-
-  check() {
-    const fragment = this.fragment();
-
-    for(let i = 0; i < this.routes.length; i++) {
-      const match = fragment.match(this.routes[i].url);
-
-      if (match) {
-        match.shift();
-        App.changeComponent(this.routes, match);
+      if (args) {
+        return new this.routes[i].component(args.slice(1), this.routes[i].child);
       }
     }
   }

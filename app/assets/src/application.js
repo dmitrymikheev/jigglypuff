@@ -12,7 +12,9 @@ import Router from 'router';
 
 class App {
   init(components) {
-    Router.parseRoutes(components);
+    // Router.parseRoutes(components);
+    Router.addRoutes(components);
+    // Router.nav(Router.fragment())
     this.components = components;
     this.tree = this.render();
     this.rootNode = createElement(this.tree);
@@ -40,7 +42,8 @@ class App {
 
   defineChildren(components) {
     const fragment = Router.fragment();
-    const component = Router.getCurrentComponent();
+    const component = Router.getCurrentComponent(fragment);
+
     this.children = component ? component : new HomePage;
   }
 
