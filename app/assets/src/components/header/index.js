@@ -8,7 +8,8 @@ class Header {
 
   render() {
     return h('.header', [
-      new Link('Home', { href: '/' })
+      new Link('Home', { href: '/', className: 'logo' }),
+      new Link('Write message', { href: '/mail/new', className: 'button button--message' })
     ]);
   }
 }

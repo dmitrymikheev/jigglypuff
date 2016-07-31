@@ -20,7 +20,7 @@ export function fetchMails(type) {
     return qwest.get('http://localhost:3000/emails', {
       type
     })
-     .then(function(xhr, response) {
+     .then((xhr, response) => {
         return dispatch(receiveMails(response));
      });
   };
@@ -38,7 +38,6 @@ export function shouldFetchMails(state, type) {
 }
 
 export function fetchMailsIfNeed(type) {
-  console.log(type);
   return (dispatch, getState) => {
     if (shouldFetchMails(getState(), type)) {
       return dispatch(fetchMails(type));

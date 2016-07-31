@@ -8,13 +8,12 @@ import MailList from 'components/mail';
 import HomePage from 'components/home';
 import Header from 'components/header';
 import mailStore from 'stores/mail';
+import messageStore from 'stores/message';
 import Router from 'router';
 
 class App {
   init(components) {
-    // Router.parseRoutes(components);
     Router.addRoutes(components);
-    // Router.nav(Router.fragment())
     this.components = components;
     this.tree = this.render();
     this.rootNode = createElement(this.tree);
@@ -22,6 +21,10 @@ class App {
     document.body.appendChild(this.rootNode);
 
     mailStore.subscribe(() => {
+      this.update();
+    });
+
+    messageStore.subscribe(() => {
       this.update();
     });
   }

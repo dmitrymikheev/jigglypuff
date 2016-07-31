@@ -27,13 +27,7 @@ class Router {
   addRoutes(routes) {
     routes.map(route => {
       this.routes.push(this.createRoute(route, route.child));
-
-      if (route.child) {
-        // this.addRoutes([route.children]);
-      }
     });
-
-    console.log(this.routes);
   }
 
   createRoute(route, child = null) {

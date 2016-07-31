@@ -1,0 +1,20 @@
+.form {
+  padding: 15px;
+
+  &-group {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  &-control {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid $border-color;
+    font-size: 14px;
+  }
+
+  &-submit {
+    font-size: 16px;
+  }
+}

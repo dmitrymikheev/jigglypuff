@@ -2,7 +2,7 @@ import h from 'virtual-dom/h';
 import createElement from 'virtual-dom/create-element';
 import Link from 'components/link';
 
-const navigationItems = [
+const NAV_ITEMS = [
   {
     icon: 'inbox',
     text: 'Inbox',
@@ -30,24 +30,26 @@ export default class Navigation {
     return this.render();
   }
 
+  renderNavItem(item) {
+    const itemClass = `i.nav-icon.fa.fa-${item.icon}`;
+
+    return (
+      h('li.nav-item',
+        new Link(
+          [ h(itemClass), item.text ],
+            { className: 'nav-link', href: item.href }
+        )
+      )
+    );
+  }
+
   render() {
-    return h('nav.nav', {
-      styles: {
-        border: '1px solid black'
-      }
-    }, [
-      h('ul.nav-list', [
-        navigationItems.map((item) => {
-          return h('li.nav-item', [
-            new Link([h(`i.nav-icon.fa.fa-${item.icon}`), item.text],
-              {
-                className: 'nav-link',
-                href: item.href
-              }
-            )
-          ]);
-        })
+    return (
+      h('nav.nav', [
+        h('ul.nav-list', [
+          NAV_ITEMS.map(this.renderNavItem)
+        ])
       ])
-    ]);
+    );
   }
 }
