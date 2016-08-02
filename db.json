@@ -54,6 +54,18 @@
       "title": "some kek",
       "message": "pek",
       "id": 9
+    },
+    {
+      "type": "drafts",
+      "title": "qweewq",
+      "message": "Some kek",
+      "id": 10
+    },
+    {
+      "type": "drafts",
+      "title": "qwe",
+      "message": "dsa",
+      "id": 11
     }
   ]
 }

@@ -4,8 +4,7 @@
   "description": "A gulp web app template",
   "main": "gulpfile.js",
   "scripts": {
-    "install": "bower install",
-    "start": "gulp serve"
+    "start": "gulp"
   },
   "repository": {
     "type": "git",
