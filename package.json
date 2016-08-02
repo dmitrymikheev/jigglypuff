@@ -32,6 +32,7 @@
     "babelify": "^7.2.0",
     "body-parser": "~1.14.1",
     "browserify": "~13.0.0",
+    "classnames": "^2.2.5",
     "core-decorators": "^0.12.3",
     "coveralls": "~2.8.0",
     "dom2hscript": "^0.2.3",

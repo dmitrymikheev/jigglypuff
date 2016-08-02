@@ -40,12 +40,7 @@ gulp.task('browserify', () => {
       .pipe(gulp.dest('./app/dist/src/'));
   };
 
-  if (dev) {
-    watchify(bundler).on('update', bundle);
-  }
-  else {
-    bundler.plugin(minifyify, { map: false });
-  }
+  watchify(bundler).on('update', bundle);
 
   return bundle();
 });

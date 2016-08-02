@@ -2,7 +2,7 @@ import qwest from 'qwest';
 
 export const REQUEST_MAIL = 'REQUEST_MAIL';
 export function requestMails() {
-  return { type: REQUEST_MAIL }
+  return { type: REQUEST_MAIL };
 }
 
 export const RECEIVE_MAILS = 'RECEIVE_MAILS';
@@ -10,7 +10,22 @@ export function receiveMails(mails) {
   return {
     type: RECEIVE_MAILS,
     items: mails
-  }
+  };
+}
+
+export const SELECT_MAIL = 'SELECT_MAIL';
+export function selectMail(id) {
+  return {
+    id,
+    type: SELECT_MAIL
+  };
+}
+
+export const MARK_IMPORTANT = 'MARK_IMPORTANT';
+export function markImportant() {
+  return {
+    type: MARK_IMPORTANT
+  };
 }
 
 export function fetchMails(type) {
