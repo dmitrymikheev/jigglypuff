@@ -17,9 +17,7 @@ class List {
 
   render(items) {
     return (
-      h('.container', [
-        h('ul.mail', items.map(item => new Item(item)))
-      ])
+      h('ul.mail', items.map(item => new Item(item)))
     );
   }
 }

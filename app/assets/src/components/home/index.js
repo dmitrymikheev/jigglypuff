@@ -6,9 +6,7 @@ class HomePage {
   }
 
   render() {
-    return h('.container.home', [
-      h('h1', 'Home Page')
-    ]);
+    return h('h1', 'Home Page');
   }
 }
 

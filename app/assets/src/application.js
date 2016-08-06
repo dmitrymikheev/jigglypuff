@@ -37,7 +37,7 @@ class App {
         new Header,
         h('.wrapper', [
           new Navigation,
-          this.children
+          h('.container', this.children)
         ])
       ])
     );

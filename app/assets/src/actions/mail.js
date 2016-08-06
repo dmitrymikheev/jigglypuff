@@ -57,7 +57,7 @@ export function fetchMails(type) {
   return dispatch => {
     dispatch(requestMails());
 
-    return qwest.get('http://localhost:3000/emails', {
+    return qwest.get('http://localhost:3000/messages', {
       type
     })
      .then((xhr, response) => {
@@ -70,7 +70,7 @@ export function fetchMessage(id) {
   return dispatch => {
     dispatch(requestMails());
 
-    return qwest.get(`http://localhost:3000/emails/${id}`)
+    return qwest.get(`http://localhost:3000/messages/${id}`)
       .then((xhr, response) => {
         return dispatch(receiveMessage(response));
       })
@@ -138,7 +138,7 @@ export function markAsImportant(emails) {
     emails.forEach(email => {
       email = omit(email, 'selected');
 
-      qwest.post('http://localhost:3000/emails', {
+      qwest.post('http://localhost:3000/messages', {
         ...email
       }).then((xhr, response) => {
         dispatch(receiveMail(response));
@@ -160,7 +160,7 @@ export function deleteIfNeed() {
 export function deleteMails(emails) {
   return dispatch => {
     emails.map(email => {
-      qwest.delete(`http://localhost:3000/emails/${email.id}`)
+      qwest.delete(`http://localhost:3000/messages/${email.id}`)
       .then((xhr, response) => {
         dispatch(deleteMailFromStore(email.id));
       });

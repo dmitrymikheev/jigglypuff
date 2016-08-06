@@ -1,4 +1,7 @@
 .nav {
+  position: fixed;
+  top: 105px;
+  left: 0;
   width: 100px;
   height: 100%;
   border-right: 1px solid $border-color;
@@ -14,8 +17,8 @@
   }
 
   &-link {
-    padding: 10px 0;
     display: block;
+    padding: 10px 0;
     text-align: center;
   }
 
