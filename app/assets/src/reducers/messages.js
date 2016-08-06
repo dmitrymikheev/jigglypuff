@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import {
   REQUEST_MAIL, RECEIVE_MAILS, RECEIVE_MESSAGE, RECEIVE_MAIL, DELETE_MAIL,
   SELECT_MAIL, MARK_IMPORTANT
-} from 'actions/mail';
+} from 'actions/messages';
 import { reject } from 'lodash';
 
 const initialState = {
@@ -80,8 +80,8 @@ function mail(state = initialState, action) {
   }
 }
 
-const mailApp = combineReducers({
+const MessagesApp = combineReducers({
   mail
 });
 
-export default mailApp;
+export default MessagesApp;

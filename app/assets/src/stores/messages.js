@@ -1,15 +1,15 @@
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import { createStore, applyMiddleware } from 'redux';
-import mailApp from 'reducers/mail';
+import MessagesApp from 'reducers/messages';
 
-const loggerMiddleware = createLogger()
-let mailStore = createStore(
-  mailApp,
+const loggerMiddleware = createLogger();
+const MessageStore = createStore(
+  MessagesApp,
   applyMiddleware(
     thunkMiddleware,
     loggerMiddleware
   )
 );
 
-export default mailStore;
+export default MessageStore;

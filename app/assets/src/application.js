@@ -4,11 +4,10 @@ import diff from 'virtual-dom/diff';
 import createElement from 'virtual-dom/create-element';
 import Thunk from 'vdom-thunk';
 import Navigation from 'components/navigation';
-import MailList from 'components/mail';
 import HomePage from 'components/home';
 import Header from 'components/header';
-import mailStore from 'stores/mail';
-import messageStore from 'stores/message';
+import MessagesStore from 'stores/messages';
+import MessageStore from 'stores/message';
 import Router from 'router';
 
 class App {
@@ -20,11 +19,11 @@ class App {
 
     document.body.appendChild(this.rootNode);
 
-    mailStore.subscribe(() => {
+    MessagesStore.subscribe(() => {
       this.update();
     });
 
-    messageStore.subscribe(() => {
+    MessageStore.subscribe(() => {
       this.update();
     });
   }

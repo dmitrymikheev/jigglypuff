@@ -3,14 +3,14 @@ import Thunk from 'vdom-thunk';
 import Router from 'router';
 import Item from './item';
 import App from 'application';
-import { fetchMailsIfNeed } from 'actions/mail';
-import mailStore from 'stores/mail';
+import { fetchMailsIfNeed } from 'actions/messages';
+import MessageStore from 'stores/messages';
 
 class List {
   constructor(params) {
-    this.state = mailStore.getState().mail;
+    this.state = MessageStore.getState().mail;
     this.items = this.state.items;
-    mailStore.dispatch(fetchMailsIfNeed(params[0]));
+    MessageStore.dispatch(fetchMailsIfNeed(params[0]));
 
     return Thunk(this.render, this.items);
   }

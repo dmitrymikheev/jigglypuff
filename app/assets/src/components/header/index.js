@@ -2,8 +2,8 @@ import h from 'virtual-dom/h';
 import Link from 'components/link';
 import Component from 'components';
 import Dropdown from 'components/dropdown';
-import { markImportant, markAsImportantIfNeed, deleteIfNeed } from 'actions/mail';
-import mailStore from 'stores/mail';
+import { markImportant, markAsImportantIfNeed, deleteIfNeed } from 'actions/messages';
+import mailStore from 'stores/messages';
 
 class Header extends Component {
   hangeSelect(value) {

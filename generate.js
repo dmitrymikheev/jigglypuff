@@ -12,7 +12,7 @@ module.exports = function() {
   return {
     messages: _.times(100, n => {
       return {
-        id: n,
+        id: ++n,
         title: faker.random.word(),
         author: faker.random.words(),
         avatar: faker.internet.avatar(),

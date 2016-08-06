@@ -1,20 +1,17 @@
 import h from 'virtual-dom/h';
 import Thunk from 'vdom-thunk';
-import { fetchMessageIfNeed } from 'actions/mail';
-import mailStore from 'stores/mail';
+import { fetchMessageIfNeed } from 'actions/messages';
+import MessageStore from 'stores/messages';
 
 class Message {
   constructor(params) {
-    const id = params[1];
-    // this.type = 'Thunk';
-    this.state = mailStore.getState().mail.message;
-    mailStore.dispatch(fetchMessageIfNeed(id));
+    this.state = MessageStore.getState().mail.message;
+    MessageStore.dispatch(fetchMessageIfNeed(params[1]));
 
     return Thunk(this.render.bind(this), this.state);
   }
 
   render() {
-    console.log(this.state);
     return (
       h('.message', [
         h('.message-field', [

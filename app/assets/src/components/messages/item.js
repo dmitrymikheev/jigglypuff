@@ -1,8 +1,8 @@
 import h from 'virtual-dom/h';
 import classNames from 'classnames';
 import Link from 'components/link';
-import { selectMail } from 'actions/mail';
-import mailStore from 'stores/mail';
+import { selectMail } from 'actions/messages';
+import MessageStore from 'stores/messages';
 
 class Item {
   constructor(options) {
@@ -11,7 +11,7 @@ class Item {
   }
 
   handeChange(event) {
-    mailStore.dispatch(selectMail(this.options.id));
+    MessageStore.dispatch(selectMail(this.options.id));
   }
 
   render() {
