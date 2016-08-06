@@ -17,9 +17,18 @@ class Message {
     console.log(this.state);
     return (
       h('.message', [
-        h('.message-title', this.state.title),
-        h('.message-author', this.state.author),
-        h('.message-body', this.state.body)
+        h('.message-field', [
+          h('.message-label', 'Title:'),
+          this.state.title
+        ]),
+        h('.message-field', [
+          h('.message-label', 'Author'),
+          this.state.author
+        ]),
+        h('.message-field', [
+          h('.message-label', 'Message:'),
+          this.state.body
+        ])
       ])
     );
   }
