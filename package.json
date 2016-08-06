@@ -62,6 +62,7 @@
     "html-to-vdom": "^0.7.0",
     "istanbul": "~0.2.4",
     "jquery": "^2.2.2",
+    "lodash": "^4.14.1",
     "main-loop": "^3.2.0",
     "minifyify": "^7.3.3",
     "mixin": "^0.2.0",

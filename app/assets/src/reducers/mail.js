@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux'
 import {
-  REQUEST_MAIL, RECEIVE_MAILS,
+  REQUEST_MAIL, RECEIVE_MAILS, RECEIVE_MAIL, DELETE_MAIL,
   SELECT_MAIL, MARK_IMPORTANT
 } from 'actions/mail';
+import { reject } from 'lodash';
 
 const initialState = {
   isFetching: false,
@@ -12,14 +13,31 @@ const initialState = {
 function mail(state = initialState, action) {
   switch (action.type) {
     case REQUEST_MAIL:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: true
-      });
+      };
     case RECEIVE_MAILS:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: false,
         items: action.items
-      })
+      };
+    case RECEIVE_MAIL:
+      return {
+        ...state,
+        items: state.items.map(item => {
+          if (item.id === action.mail.id) {
+            return action.mail;
+          }
+          return item;
+        })
+      };
+    case DELETE_MAIL:
+      return {
+        ...state,
+        items: reject(state.items, ['id', action.id])
+      };
     case SELECT_MAIL:
       return {
         ...state,
@@ -32,7 +50,7 @@ function mail(state = initialState, action) {
           }
           return item;
         })
-      }
+      };
     case MARK_IMPORTANT:
       return {
         ...state,

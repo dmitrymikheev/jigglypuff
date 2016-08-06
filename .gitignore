@@ -7,4 +7,3 @@ node_modules
 /tmp/*
 app/dist/*
 .env
-db.json

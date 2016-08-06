@@ -7,7 +7,6 @@ import mailStore from 'stores/mail';
 class Item {
   constructor(options) {
     this.options = options;
-    console.log(this.options);
     return this.render();
   }
 
@@ -20,17 +19,19 @@ class Item {
       title,
       type,
       id,
+      selected,
       important
     } = this.options;
     const className = classNames({
       'mail-item': true,
       'mail-item--important': important
-    })
+    });
 
     return (
       h('li', { className }, [
         h('input.mail-checkbox', {
           type: 'checkbox',
+          checked: selected,
           onchange: this.handeChange.bind(this)
         }),
         new Link(title, {
