@@ -14,6 +14,14 @@ export function receiveMails(items) {
   };
 }
 
+export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
+export function receiveMessage(message) {
+  return {
+    message,
+    type: RECEIVE_MESSAGE
+  }
+}
+
 export const RECEIVE_MAIL = 'RECEIVE_MAIL';
 export function receiveMail(mail) {
   return {
@@ -58,6 +66,17 @@ export function fetchMails(type) {
   };
 }
 
+export function fetchMessage(id) {
+  return dispatch => {
+    dispatch(requestMails());
+
+    return qwest.get(`http://localhost:3000/emails/${id}`)
+      .then((xhr, response) => {
+        return dispatch(receiveMessage(response));
+      })
+  };
+}
+
 export function shouldFetchMails(state, type) {
   const items = state.mail.items;
   if (!items.length && !state.mail.isFetching) {
@@ -75,6 +94,26 @@ export function fetchMailsIfNeed(type) {
       return dispatch(fetchMails(type));
     }
   };
+}
+
+export function shouldFetchMessage(state, id) {
+  const message = state.mail.message;
+
+  if (!message.id && !state.mail.isFetching) {
+    return true;
+  } else if (message.id && !state.mail.isFetching) {
+    return message.id !== parseInt(id);
+  }
+
+  return false;
+}
+
+export function fetchMessageIfNeed(id) {
+  return (dispatch, getState) => {
+    if (shouldFetchMessage(getState(), id)) {
+      return dispatch(fetchMessage(id));
+    }
+  }
 }
 
 export function markAsImportantIfNeed() {

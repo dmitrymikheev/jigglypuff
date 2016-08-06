@@ -8,7 +8,6 @@ import mailStore from 'stores/mail';
 
 class List {
   constructor(params) {
-    this.type = "Thunk";
     this.state = mailStore.getState().mail;
     this.items = this.state.items;
     mailStore.dispatch(fetchMailsIfNeed(params[0]));
