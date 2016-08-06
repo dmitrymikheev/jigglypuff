@@ -5,14 +5,21 @@ import App from 'application';
 class Router {
   constructor() {
     this.routes = [];
+    this.bindEvents();
+  }
+
+  bindEvents() {
+    window.addEventListener('popstate', (event) => {
+      this.go(location.pathname);
+    }, false);
   }
 
   go(path) {
     window.history.pushState(null, null, path);
-    this.onChange(path);
+    this.onChange();
   }
 
-  onChange(path) {
+  onChange() {
     App.update();
   }
 
