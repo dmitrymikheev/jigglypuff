@@ -1,4 +1,5 @@
 import qwest from 'qwest';
+import messagesSource from 'sources/messages';
 import { omit } from 'lodash';
 
 export const REQUEST_MAIL = 'REQUEST_MAIL';
@@ -57,12 +58,7 @@ export function fetchMails(type) {
   return dispatch => {
     dispatch(requestMails());
 
-    return qwest.get('http://localhost:3000/messages', {
-      type
-    })
-     .then((xhr, response) => {
-        return dispatch(receiveMails(response));
-     });
+    messagesSource.fetch(type).then(messages => dispatch(receiveMails(messages)));
   };
 }
 
@@ -70,10 +66,7 @@ export function fetchMessage(id) {
   return dispatch => {
     dispatch(requestMails());
 
-    return qwest.get(`http://localhost:3000/messages/${id}`)
-      .then((xhr, response) => {
-        return dispatch(receiveMessage(response));
-      })
+    messagesSource.get(id).then(message => dispatch(receiveMessage(message)));
   };
 }
 
@@ -126,23 +119,20 @@ export function markAsImportantIfNeed() {
   };
 }
 
-export function markAsImportant(emails) {
-  emails = emails.map(mail => {
+export function markAsImportant(messages) {
+  messages = messages.map(message => {
     return {
-      ...mail,
+      ...message,
       important: true
     };
   });
 
   return dispatch => {
-    emails.forEach(email => {
-      email = omit(email, 'selected');
-
-      qwest.post('http://localhost:3000/messages', {
-        ...email
-      }).then((xhr, response) => {
-        dispatch(receiveMail(response));
-      });
+    messages.forEach(message => {
+      message = omit(message, 'selected');
+      messagesSource
+        .update(message)
+        .then(message => dispatch(receiveMail(message)));
     });
   };
 }
@@ -157,13 +147,22 @@ export function deleteIfNeed() {
   }
 }
 
-export function deleteMails(emails) {
+export function deleteMails(messages) {
   return dispatch => {
-    emails.map(email => {
-      qwest.delete(`http://localhost:3000/messages/${email.id}`)
-      .then((xhr, response) => {
-        dispatch(deleteMailFromStore(email.id));
-      });
+    messages = messages.map(message => {
+      return {
+        ...message,
+        type: 'deleted',
+        important: false
+      };
+    });
+
+    messages.forEach(message => {
+      message = omit(message, 'selected');
+
+      messagesSource
+        .update(message)
+        .then(message => dispatch(deleteMailFromStore(message.id)));
     });
   }
 }
