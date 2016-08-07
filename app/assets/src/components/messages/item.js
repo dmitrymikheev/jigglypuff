@@ -2,7 +2,7 @@ import h from 'virtual-dom/h';
 import classNames from 'classnames';
 import Link from 'components/link';
 import { selectMail } from 'actions/messages';
-import MessageStore from 'stores/messages';
+import MessagesStore from 'stores/messages';
 
 class Item {
   constructor(options) {
@@ -11,20 +11,19 @@ class Item {
   }
 
   handeChange(event) {
-    MessageStore.dispatch(selectMail(this.options.id));
+    MessagesStore.dispatch(selectMail(this.options.id));
   }
 
   render() {
-     const {
+    const {
       title,
       type,
       id,
-      selected,
-      important
+      selected
     } = this.options;
     const className = classNames({
       'mail-item': true,
-      'mail-item--important': important
+      'mail-item--starred': type === 'starred'
     });
 
     return (

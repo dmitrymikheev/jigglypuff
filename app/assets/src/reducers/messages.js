@@ -8,14 +8,10 @@ import { reject } from 'lodash';
 const initialState = {
   isFetching: false,
   items: [],
-  message: {
-    author: '',
-    body: '',
-    title: ''
-  }
+  message: {}
 };
 
-function mail(state = initialState, action) {
+function messages(state = initialState, action) {
   switch (action.type) {
     case REQUEST_MAIL:
       return {
@@ -81,7 +77,7 @@ function mail(state = initialState, action) {
 }
 
 const MessagesApp = combineReducers({
-  mail
+  messages
 });
 
 export default MessagesApp;

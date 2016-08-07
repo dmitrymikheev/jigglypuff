@@ -1,12 +1,12 @@
 import h from 'virtual-dom/h';
 import Thunk from 'vdom-thunk';
 import { fetchMessageIfNeed } from 'actions/messages';
-import MessageStore from 'stores/messages';
+import MessagesStore from 'stores/messages';
 
 class Message {
   constructor(params) {
-    this.state = MessageStore.getState().mail.message;
-    MessageStore.dispatch(fetchMessageIfNeed(params[1]));
+    this.state = MessagesStore.getState().messages.message;
+    MessagesStore.dispatch(fetchMessageIfNeed(params[1]));
 
     return Thunk(this.render.bind(this), this.state);
   }
@@ -19,7 +19,7 @@ class Message {
           this.state.title
         ]),
         h('.message-field', [
-          h('.message-label', 'Author'),
+          h('.message-label', 'Author:'),
           this.state.author
         ]),
         h('.message-field', [

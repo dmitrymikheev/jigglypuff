@@ -34,10 +34,8 @@ class App {
     return (
       h('.app', [
         new Header,
-        h('.wrapper', [
-          new Navigation,
-          h('.container', this.children)
-        ])
+        new Navigation,
+        h('.container', this.children)
       ])
     );
   }

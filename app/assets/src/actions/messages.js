@@ -1,5 +1,6 @@
 import qwest from 'qwest';
 import messagesSource from 'sources/messages';
+import { shouldFetchMessages, shouldFetchMessage } from 'helpers/messages';
 import { omit } from 'lodash';
 
 export const REQUEST_MAIL = 'REQUEST_MAIL';
@@ -70,35 +71,12 @@ export function fetchMessage(id) {
   };
 }
 
-export function shouldFetchMails(state, type) {
-  const items = state.mail.items;
-  if (!items.length && !state.mail.isFetching) {
-    return true;
-  } else if (items.length && !state.mail.isFetching) {
-    return items.some(item => item.type !== type)
-  }
-
-  return false;
-}
-
 export function fetchMailsIfNeed(type) {
   return (dispatch, getState) => {
-    if (shouldFetchMails(getState(), type)) {
+    if (shouldFetchMessages(getState(), type)) {
       return dispatch(fetchMails(type));
     }
   };
-}
-
-export function shouldFetchMessage(state, id) {
-  const message = state.mail.message;
-
-  if (!message.id && !state.mail.isFetching) {
-    return true;
-  } else if (message.id && !state.mail.isFetching) {
-    return message.id !== parseInt(id);
-  }
-
-  return false;
 }
 
 export function fetchMessageIfNeed(id) {
@@ -111,7 +89,7 @@ export function fetchMessageIfNeed(id) {
 
 export function markAsImportantIfNeed() {
   return (dispatch, getState) => {
-    const selectedMails = getState().mail.items.filter(item => item.selected);
+    const selectedMails = getState().messages.items.filter(item => item.selected);
 
     if (selectedMails.length) {
       return dispatch(markAsImportant(selectedMails));
@@ -123,7 +101,7 @@ export function markAsImportant(messages) {
   messages = messages.map(message => {
     return {
       ...message,
-      important: true
+      type: 'starred'
     };
   });
 
@@ -139,7 +117,7 @@ export function markAsImportant(messages) {
 
 export function deleteIfNeed() {
   return (dispatch, getState) => {
-    const selectedMails = getState().mail.items.filter(item => item.selected);
+    const selectedMails = getState().messages.items.filter(item => item.selected);
 
     if (selectedMails.length) {
       return dispatch(deleteMails(selectedMails));

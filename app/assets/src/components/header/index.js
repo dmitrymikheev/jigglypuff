@@ -2,16 +2,18 @@ import h from 'virtual-dom/h';
 import Link from 'components/link';
 import Component from 'components';
 import Dropdown from 'components/dropdown';
-import { markImportant, markAsImportantIfNeed, deleteIfNeed } from 'actions/messages';
-import mailStore from 'stores/messages';
+import { markAsImportantIfNeed, deleteIfNeed } from 'actions/messages';
+import MessagesStore from 'stores/messages';
+
+const actions = {
+  mark: markAsImportantIfNeed,
+  unmark: '',
+  delete: deleteIfNeed
+};
 
 class Header extends Component {
   hangeSelect(value) {
-    if (value === 'important') {
-      mailStore.dispatch(markAsImportantIfNeed())
-    } else if(value === 'delete') {
-      mailStore.dispatch(deleteIfNeed());
-    }
+    MessagesStore.dispatch(actions[value]());
   }
 
   render() {

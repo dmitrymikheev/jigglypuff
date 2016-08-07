@@ -4,20 +4,19 @@ import Router from 'router';
 import Item from './item';
 import App from 'application';
 import { fetchMailsIfNeed } from 'actions/messages';
-import MessageStore from 'stores/messages';
+import MessagesStore from 'stores/messages';
 
 class List {
   constructor(params) {
-    this.state = MessageStore.getState().mail;
-    this.items = this.state.items;
-    MessageStore.dispatch(fetchMailsIfNeed(params[0]));
+    this.state = MessagesStore.getState().messages;
+    MessagesStore.dispatch(fetchMailsIfNeed(params[0]));
 
-    return Thunk(this.render, this.items);
+    return Thunk(this.render.bind(this), this.state);
   }
 
-  render(items) {
+  render() {
     return (
-      h('ul.mail', items.map(item => new Item(item)))
+      h('ul.mail', this.state.items.map(item => new Item(item)))
     );
   }
 }

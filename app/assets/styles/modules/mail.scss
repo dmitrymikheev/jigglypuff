@@ -10,8 +10,8 @@
     border-bottom: 1px solid $border-color;
   }
 
-  &-item--important {
-    background: rgba($secondary-light-color, .5);
+  &-item--starred {
+    background: rgba($secondary-light-color, .4);
   }
 
   &-link {
