@@ -4,7 +4,6 @@ var _ = require('lodash');
 const TYPES = [
   'inbox',
   'drafts',
-  'starred',
   'deleted'
 ]
 
@@ -14,11 +13,16 @@ module.exports = function() {
       return {
         id: ++n,
         title: faker.random.word(),
-        author: faker.random.words(),
+        author: faker.internet.userName(),
         avatar: faker.internet.avatar(),
         sender: faker.internet.email(),
-        type: TYPES[_.random(0, 3)],
-        body: faker.random.words()
+        type: TYPES[_.random(0, 2)],
+        starred: !!(_.random(0, 1)),
+        body: (function() {
+          return _.times(10, n => {
+            return faker.lorem.paragraphs()
+          }).join('');
+        })()
       }
     })
   }

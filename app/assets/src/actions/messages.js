@@ -1,18 +1,24 @@
 import qwest from 'qwest';
 import messagesSource from 'sources/messages';
-import { shouldFetchMessages, shouldFetchMessage } from 'helpers/messages';
-import { omit } from 'lodash';
+import {
+  shouldFetchMessages,
+  shouldFetchMessage,
+  changeTypeMessages,
+  toggleStarredMessages,
+  getSelectedMessages,
+  prepareParams
+} from 'helpers/messages';
 
-export const REQUEST_MAIL = 'REQUEST_MAIL';
+export const MAKE_REQUEST = 'MAKE_REQUEST';
 export function requestMails() {
-  return { type: REQUEST_MAIL };
+  return { type: MAKE_REQUEST };
 }
 
-export const RECEIVE_MAILS = 'RECEIVE_MAILS';
+export const RECEIVE_MESSAGES = 'RECEIVE_MESSAGES';
 export function receiveMails(items) {
   return {
     items,
-    type: RECEIVE_MAILS
+    type: RECEIVE_MESSAGES
   };
 }
 
@@ -24,19 +30,19 @@ export function receiveMessage(message) {
   }
 }
 
-export const RECEIVE_MAIL = 'RECEIVE_MAIL';
-export function receiveMail(mail) {
+export const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
+export function updateMessage(message) {
   return {
-    mail,
-    type: RECEIVE_MAIL
+    message,
+    type: UPDATE_MESSAGE
   }
 }
 
-export const SELECT_MAIL = 'SELECT_MAIL';
-export function selectMail(id) {
+export const SELECT_MESSAGE = 'SELECT_MESSAGE';
+export function selectMessage(id) {
   return {
     id,
-    type: SELECT_MAIL
+    type: SELECT_MESSAGE
   };
 }
 
@@ -47,19 +53,20 @@ export function markImportant() {
   };
 }
 
-export const DELETE_MAIL = 'DELETE_MAIL';
-export function deleteMailFromStore(id) {
+export const DELETE_MESSAGE = 'DELETE_MESSAGE';
+export function deleteMessageFromStore(id) {
   return {
     id,
-    type: DELETE_MAIL
+    type: DELETE_MESSAGE
   };
 }
 
 export function fetchMails(type) {
   return dispatch => {
     dispatch(requestMails());
+    const params = prepareParams(type);
 
-    messagesSource.fetch(type).then(messages => dispatch(receiveMails(messages)));
+    messagesSource.fetch({ ...params }).then(messages => dispatch(receiveMails(messages)));
   };
 }
 
@@ -71,7 +78,7 @@ export function fetchMessage(id) {
   };
 }
 
-export function fetchMailsIfNeed(type) {
+export function fetchMessagesIfNeed(type) {
   return (dispatch, getState) => {
     if (shouldFetchMessages(getState(), type)) {
       return dispatch(fetchMails(type));
@@ -87,30 +94,42 @@ export function fetchMessageIfNeed(id) {
   }
 }
 
-export function markAsImportantIfNeed() {
+export function markAsStarred() {
   return (dispatch, getState) => {
-    const selectedMails = getState().messages.items.filter(item => item.selected);
+    const messages = getSelectedMessages(getState().messages.items)
 
-    if (selectedMails.length) {
-      return dispatch(markAsImportant(selectedMails));
+    if (messages.length) {
+      return dispatch(setStarredMessages(messages, true));
     }
   };
 }
 
-export function markAsImportant(messages) {
-  messages = messages.map(message => {
-    return {
-      ...message,
-      type: 'starred'
-    };
-  });
+export function unmarkAsStarred() {
+  return (dispatch, getState) => {
+    const messages = getSelectedMessages(getState().messages.items)
 
+    if (messages.length) {
+      return dispatch(setStarredMessages(messages, false));
+    }
+  };
+}
+
+export function markMessageAsImportant(id) {
+  return (dispatch, getState) => {
+    const message = getState().messages.items.filter(item => item.id === id);
+
+    return dispatch(setStarredMessages(message));
+  }
+}
+
+export function setStarredMessages(messages, starred) {
   return dispatch => {
+    messages = toggleStarredMessages(messages, starred);
+
     messages.forEach(message => {
-      message = omit(message, 'selected');
       messagesSource
         .update(message)
-        .then(message => dispatch(receiveMail(message)));
+        .then(message => dispatch(updateMessage(message)));
     });
   };
 }
@@ -120,27 +139,19 @@ export function deleteIfNeed() {
     const selectedMails = getState().messages.items.filter(item => item.selected);
 
     if (selectedMails.length) {
-      return dispatch(deleteMails(selectedMails));
+      return dispatch(deleteMessages(selectedMails));
     }
   }
 }
 
-export function deleteMails(messages) {
+export function deleteMessages(messages) {
   return dispatch => {
-    messages = messages.map(message => {
-      return {
-        ...message,
-        type: 'deleted',
-        important: false
-      };
-    });
+    messages = changeTypeMessages(messages, 'deleted');
 
     messages.forEach(message => {
-      message = omit(message, 'selected');
-
       messagesSource
         .update(message)
-        .then(message => dispatch(deleteMailFromStore(message.id)));
+        .then(message => dispatch(deleteMessageFromStore(message.id)));
     });
   }
 }

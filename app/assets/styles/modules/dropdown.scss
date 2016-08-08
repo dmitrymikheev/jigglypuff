@@ -4,6 +4,10 @@
   border: 1px solid $primary-color;
   cursor: pointer;
 
+  &:hover {
+    color: lighten($primary-color, 5);
+  }
+
   &-list {
     display: none;
     position: absolute;

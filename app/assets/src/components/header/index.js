@@ -2,12 +2,12 @@ import h from 'virtual-dom/h';
 import Link from 'components/link';
 import Component from 'components';
 import Dropdown from 'components/dropdown';
-import { markAsImportantIfNeed, deleteIfNeed } from 'actions/messages';
+import { markAsStarred, unmarkAsStarred, deleteIfNeed } from 'actions/messages';
 import MessagesStore from 'stores/messages';
 
 const actions = {
-  mark: markAsImportantIfNeed,
-  unmark: '',
+  mark: markAsStarred,
+  unmark: unmarkAsStarred,
   delete: deleteIfNeed
 };
 

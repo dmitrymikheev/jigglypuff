@@ -1,3 +1,9 @@
+import { omit } from 'lodash';
+
+export function getSelectedMessages(messages) {
+  return messages.filter(item => item.selected);
+}
+
 export function shouldFetchMessages(state, type) {
   const items = state.messages.items;
 
@@ -20,4 +26,30 @@ export function shouldFetchMessage(state, id) {
   }
 
   return false;
+}
+
+export function changeTypeMessages(messages, type) {
+  return messages.map(message => {
+    message = omit(message, 'selected');
+
+    return {
+      ...message,
+      type
+    };
+  });
+}
+
+export function toggleStarredMessages(messages, starred) {
+  return messages.map(message => {
+    message = omit(message, 'selected');
+
+    return {
+      ...message,
+      starred: starred ? starred : !message.starred
+    };
+  });
+}
+
+export function prepareParams(type) {
+  return type === 'starred' ? { starred: true } : { type };
 }

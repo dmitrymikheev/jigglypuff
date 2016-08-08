@@ -1,4 +1,5 @@
 import qwest from 'qwest';
+import messagesSource from 'sources/messages';
 
 export const SET_FIELD = 'SET_FIELD';
 export function setField(field, value) {
@@ -23,10 +24,8 @@ export function sendMessage() {
   return (dispatch, getState) => {
     const message = getState().message;
 
-    return qwest.post('http://localhost:3000/emails', {
-      ...message
-    }).then((xhr, response) => {
-      return dispatch(clearMessage());
-    });
+    messagesSource
+      .create(message)
+      .then((xhr, response) => dispatch(clearMessage()));
   };
 }

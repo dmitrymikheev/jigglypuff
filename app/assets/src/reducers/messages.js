@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import {
-  REQUEST_MAIL, RECEIVE_MAILS, RECEIVE_MESSAGE, RECEIVE_MAIL, DELETE_MAIL,
-  SELECT_MAIL, MARK_IMPORTANT
+  MAKE_REQUEST, RECEIVE_MESSAGES, RECEIVE_MESSAGE, UPDATE_MESSAGE, DELETE_MESSAGE,
+  SELECT_MESSAGE, MARK_IMPORTANT
 } from 'actions/messages';
 import { reject } from 'lodash';
 
@@ -13,12 +13,12 @@ const initialState = {
 
 function messages(state = initialState, action) {
   switch (action.type) {
-    case REQUEST_MAIL:
+    case MAKE_REQUEST:
       return {
         ...state,
         isFetching: true
       };
-    case RECEIVE_MAILS:
+    case RECEIVE_MESSAGES:
       return {
         ...state,
         isFetching: false,
@@ -30,22 +30,22 @@ function messages(state = initialState, action) {
         isFetching: false,
         message: action.message
       };
-    case RECEIVE_MAIL:
+    case UPDATE_MESSAGE:
       return {
         ...state,
         items: state.items.map(item => {
-          if (item.id === action.mail.id) {
-            return action.mail;
+          if (item.id === action.message.id) {
+            return action.message;
           }
           return item;
         })
       };
-    case DELETE_MAIL:
+    case DELETE_MESSAGE:
       return {
         ...state,
         items: reject(state.items, ['id', action.id])
       };
-    case SELECT_MAIL:
+    case SELECT_MESSAGE:
       return {
         ...state,
         items: state.items.map(item => {

@@ -36,8 +36,8 @@ class newMessage {
         h('label.form-group', [
           'Message',
           h('textarea.form-control', {
-            name: 'message',
-            value: this.state.message,
+            name: 'body',
+            value: this.state.body,
             onkeyup: this.onChangeField
           })
         ]),

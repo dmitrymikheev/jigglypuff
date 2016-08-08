@@ -1,5 +1,5 @@
 .mail {
-  margin: 0 -15px;
+  margin: 0 0 0 -15px;
   padding: 0;
   list-style: none;
 
@@ -10,8 +10,22 @@
     border-bottom: 1px solid $border-color;
   }
 
-  &-item--starred {
-    background: rgba($secondary-light-color, .4);
+  &-star {
+    margin-left: 8px;
+    cursor: pointer;
+
+    &::before {
+      content: "\f006";
+    }
+
+    &:hover {
+      color: $secondary-color;
+    }
+  }
+
+  &-item--starred &-star::before {
+    content: "\f005";
+    color: $secondary-color;
   }
 
   &-link {

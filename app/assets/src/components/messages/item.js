@@ -1,7 +1,7 @@
 import h from 'virtual-dom/h';
 import classNames from 'classnames';
 import Link from 'components/link';
-import { selectMail } from 'actions/messages';
+import { selectMessage, markMessageAsImportant } from 'actions/messages';
 import MessagesStore from 'stores/messages';
 
 class Item {
@@ -11,7 +11,11 @@ class Item {
   }
 
   handeChange(event) {
-    MessagesStore.dispatch(selectMail(this.options.id));
+    MessagesStore.dispatch(selectMessage(this.options.id));
+  }
+
+  toggleStarred(id) {
+    MessagesStore.dispatch(markMessageAsImportant(id));
   }
 
   render() {
@@ -19,11 +23,12 @@ class Item {
       title,
       type,
       id,
-      selected
+      selected,
+      starred
     } = this.options;
     const className = classNames({
       'mail-item': true,
-      'mail-item--starred': type === 'starred'
+      'mail-item--starred': starred
     });
 
     return (
@@ -32,6 +37,9 @@ class Item {
           type: 'checkbox',
           checked: selected,
           onchange: this.handeChange.bind(this)
+        }),
+        h('i.mail-star.fa', {
+          onclick: this.toggleStarred.bind(this, id)
         }),
         new Link(title, {
           className: 'mail-link',
