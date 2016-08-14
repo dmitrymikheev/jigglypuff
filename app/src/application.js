@@ -5,6 +5,7 @@ import createElement from 'virtual-dom/create-element';
 import Thunk from 'vdom-thunk';
 import Navigation from 'components/navigation';
 import Header from 'components/header';
+import Messages from 'components/messages';
 import Notification from 'components/notification';
 import MessagesStore from 'stores/messages';
 import MessageStore from 'stores/message';
