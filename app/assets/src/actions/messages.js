@@ -10,15 +10,26 @@ import {
 } from 'helpers/messages';
 
 export const MAKE_REQUEST = 'MAKE_REQUEST';
-export function requestMails() {
+export function makeRequest() {
   return { type: MAKE_REQUEST };
 }
 
+export const FAILURE_REQUEST = 'FAILURE_REQUEST'
+export function failureRequest(message) {
+  return {
+    message,
+    type: FAILURE_REQUEST,
+    status: 'error'
+  };
+}
+
 export const RECEIVE_MESSAGES = 'RECEIVE_MESSAGES';
-export function receiveMails(items) {
+export function receiveMessages(items) {
   return {
     items,
-    type: RECEIVE_MESSAGES
+    type: RECEIVE_MESSAGES,
+    message: 'Receive Messages',
+    status: 'success'
   };
 }
 
@@ -61,27 +72,39 @@ export function deleteMessageFromStore(id) {
   };
 }
 
-export function fetchMails(type) {
+export const HIDE_NOTIFICATION = 'HIDE_NOTIFICATION';
+export function hideNotification() {
+  return {
+    type: HIDE_NOTIFICATION
+  };
+}
+
+export function fetchMessages(type) {
   return dispatch => {
-    dispatch(requestMails());
+    dispatch(makeRequest());
     const params = prepareParams(type);
 
-    messagesSource.fetch({ ...params }).then(messages => dispatch(receiveMails(messages)));
+    messagesSource
+      .fetch({ ...params })
+      .then(messages => dispatch(receiveMessages(messages)))
+      .catch((e, xhr, response) => dispatch(failureRequest(e.message)));
   };
 }
 
 export function fetchMessage(id) {
   return dispatch => {
-    dispatch(requestMails());
+    dispatch(makeRequest());
 
-    messagesSource.get(id).then(message => dispatch(receiveMessage(message)));
+    messagesSource
+      .get(id)
+      .then(message => dispatch(receiveMessage(message)));
   };
 }
 
 export function fetchMessagesIfNeed(type) {
   return (dispatch, getState) => {
     if (shouldFetchMessages(getState(), type)) {
-      return dispatch(fetchMails(type));
+      return dispatch(fetchMessages(type));
     }
   };
 }
@@ -136,10 +159,10 @@ export function setStarredMessages(messages, starred) {
 
 export function deleteIfNeed() {
   return (dispatch, getState) => {
-    const selectedMails = getState().messages.items.filter(item => item.selected);
+    const selectedMessages = getSelectedMessages(getState().messages.items);
 
-    if (selectedMails.length) {
-      return dispatch(deleteMessages(selectedMails));
+    if (selectedMessages.length) {
+      return dispatch(deleteMessages(selectedMessages));
     }
   }
 }

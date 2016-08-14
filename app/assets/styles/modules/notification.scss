@@ -1,0 +1,27 @@
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  color: $white;
+  z-index: 9;
+  display: none;
+  animation: hideAnimation 3s;
+  opacity: 0;
+
+  &--success {
+    display: block;
+    background: $primary-light-color;
+  }
+
+  &--error {
+    display: block;
+    background: red;
+  }
+}
+
+@keyframes hideAnimation {
+  0%   { opacity: 1; }
+  95%   { opacity: 1; }
+  100% { opacity: 0; }
+}

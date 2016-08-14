@@ -6,6 +6,7 @@ import Thunk from 'vdom-thunk';
 import Navigation from 'components/navigation';
 import HomePage from 'components/home';
 import Header from 'components/header';
+import Notification from 'components/notification';
 import MessagesStore from 'stores/messages';
 import MessageStore from 'stores/message';
 import Router from 'router';
@@ -35,6 +36,7 @@ class App {
       h('.app', [
         new Header,
         new Navigation,
+        new Notification,
         h('.container', this.children)
       ])
     );

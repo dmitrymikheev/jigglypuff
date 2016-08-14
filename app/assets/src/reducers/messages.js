@@ -1,7 +1,8 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 import {
   MAKE_REQUEST, RECEIVE_MESSAGES, RECEIVE_MESSAGE, UPDATE_MESSAGE, DELETE_MESSAGE,
-  SELECT_MESSAGE, MARK_IMPORTANT
+  SELECT_MESSAGE, MARK_IMPORTANT,
+  FAILURE_REQUEST, HIDE_NOTIFICATION
 } from 'actions/messages';
 import { reject } from 'lodash';
 
@@ -76,8 +77,35 @@ function messages(state = initialState, action) {
   }
 }
 
+function notification(state = {}, action) {
+  switch (action.type) {
+    case RECEIVE_MESSAGES:
+      return {
+        ...state,
+        message: action.message,
+        status: action.status,
+        isHidden: false
+      };
+    case FAILURE_REQUEST:
+      return {
+        ...state,
+        message: action.message,
+        status: action.status,
+        isHidden: false
+      }
+    case HIDE_NOTIFICATION:
+      return {
+        ...state,
+        isHidden: true
+      };
+    default:
+      return state;
+  }
+}
+
 const MessagesApp = combineReducers({
-  messages
+  messages,
+  notification
 });
 
 export default MessagesApp;
