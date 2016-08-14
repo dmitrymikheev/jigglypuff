@@ -2,10 +2,14 @@ import h from 'virtual-dom/h';
 import Thunk from 'vdom-thunk';
 import { hideNotification } from 'actions/messages';
 import MessagesStore from 'stores/messages';
+import MessageStore from 'stores/message';
 
 class Notification {
   constructor() {
-    this.state = MessagesStore.getState().notification;
+    this.state = {
+      ...MessagesStore.getState().notification,
+      ...MessageStore.getState().notification
+    };
     this.hideNotification();
 
     return Thunk(this.render.bind(this), this.state);

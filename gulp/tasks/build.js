@@ -1,6 +1,13 @@
 import gulp from 'gulp';
-import clean from 'gulp-clean';
+import runSequence from 'run-sequence';
+import config from '../config';
 
-gulp.task('default', ['browserify', 'express', 'scss', 'images', 'fonts', 'templates', 'watch']);
-
-gulp.task('build', ['clean', 'scss', 'images', 'fonts', 'templates', 'browserify']);
+gulp.task('build', (callback) => {
+  runSequence(
+    'images',
+    'templates',
+    'scss',
+    'browserify',
+    callback
+  );
+});

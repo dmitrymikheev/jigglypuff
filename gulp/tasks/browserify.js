@@ -1,16 +1,18 @@
-import gulp       from 'gulp';
-import rename     from 'gulp-rename';
-import plumber    from 'gulp-plumber';
+import gulp from 'gulp';
+import rename from 'gulp-rename';
+import plumber from 'gulp-plumber';
 import browserify from 'browserify';
-import babelify   from 'babelify';
-import watchify   from 'watchify';
-import source     from 'vinyl-source-stream';
-import notify     from 'gulp-notify';
-import dotenv     from 'dotenv';
+import minifyify from 'minifyify';
+import babelify from 'babelify';
+import watchify from 'watchify';
+import source from 'vinyl-source-stream';
+import notify from 'gulp-notify';
+import dotenv from 'dotenv';
+import config from '../config';
 
 dotenv.load();
 const dev = process.env.NODE_ENV === 'development';
-const entryPoint = './app/assets/src/main.js'
+const entryPoint = `./${config.appDir}/src/main.js`;
 
 gulp.task('browserify', () => {
   const bundler = browserify({
@@ -21,13 +23,13 @@ gulp.task('browserify', () => {
     extensions: ['.js'],
     entries: entryPoint,
     paths: [
-      './app/assets/src/'
+      `${config.appDir}/src`
     ]
   })
   .transform(babelify.configure({
     presets: ['es2015', 'stage-0'],
     plugins: ['transform-decorators-legacy'],
-    sourceMapRelative: 'app/'
+    sourceMapRelative: config.appDir
   }));
 
   const bundle = () => {
@@ -37,10 +39,15 @@ gulp.task('browserify', () => {
       .on('error', notify.onError())
       .pipe(source(entryPoint))
       .pipe(rename('app.js'))
-      .pipe(gulp.dest('./app/dist/src/'));
+      .pipe(gulp.dest(config.distDir));
   };
 
-  watchify(bundler).on('update', bundle);
+  if (config.development) {
+    watchify(bundler).on('update', bundle);
+  }
+  else {
+    bundler.plugin(minifyify, { map: false });
+  }
 
   return bundle();
 });

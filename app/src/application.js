@@ -4,8 +4,8 @@ import diff from 'virtual-dom/diff';
 import createElement from 'virtual-dom/create-element';
 import Thunk from 'vdom-thunk';
 import Navigation from 'components/navigation';
-import HomePage from 'components/home';
 import Header from 'components/header';
+import Messages from 'components/messages';
 import Notification from 'components/notification';
 import MessagesStore from 'stores/messages';
 import MessageStore from 'stores/message';
@@ -46,7 +46,7 @@ class App {
     const fragment = Router.fragment();
     const component = Router.getCurrentComponent(fragment);
 
-    this.children = component ? component : new HomePage;
+    this.children = component ? component : new Messages;
   }
 
   update() {

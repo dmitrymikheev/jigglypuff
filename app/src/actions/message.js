@@ -17,7 +17,11 @@ export function submitMessage() {
 
 export const CLEAR_MESSAGE = 'CLEAR_MESSAGE'
 export function clearMessage() {
-  return { type: CLEAR_MESSAGE };
+  return {
+    type: CLEAR_MESSAGE,
+    message: 'Message saved to drafts',
+    status: 'success'
+  };
 }
 
 export const SEND_MESSAGE = 'SEND_MESSAGE';

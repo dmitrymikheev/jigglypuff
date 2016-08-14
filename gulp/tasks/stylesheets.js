@@ -1,29 +1,20 @@
-import gulp         from 'gulp';
-import gulpif       from 'gulp-if';
-import plumber      from 'gulp-plumber';
-import scss         from 'gulp-sass';
+import gulp from 'gulp';
+import plumber from 'gulp-plumber';
+import scss from 'gulp-sass';
+import notify from 'gulp-notify';
 import autoprefixer from 'gulp-autoprefixer';
-import minifyCss    from 'gulp-minify-css';
-import dotenv       from 'dotenv';
-
-dotenv.load();
-const dev = process.env.NODE_ENV === 'development';
+import config from '../config';
 
 gulp.task('scss',() => {
-  gulp.src('./app/assets/styles/app.scss')
+  gulp.src(`${config.appDir}/styles/app.scss`)
     .pipe(plumber())
     .pipe(scss())
+    .on('error', notify.onError())
     .pipe(autoprefixer('last 2 version'))
-    .pipe(gulpif(!dev, minifyCss()))
-    .pipe(gulp.dest('./app/dist/styles/'))
+    .pipe(gulp.dest(`${config.distDir}/styles/`))
 });
 
 gulp.task('images', () => {
-  return gulp.src('./app/assets/images/**/*')
-    .pipe(gulp.dest('./app/dist/images'));
-});
-
-gulp.task('fonts', () => {
-  return gulp.src('./app/assets/images/**/*')
-    .pipe(gulp.dest('./app/dist/images'));
+  return gulp.src(`${config.appDir}/images/**/*`)
+    .pipe(gulp.dest(`${config.distDir}/images`));
 });

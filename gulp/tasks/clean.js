@@ -1,6 +1,5 @@
 import gulp from 'gulp';
+import del from 'del';
+import config from '../config';
 
-gulp.task('clean', function() {
-  return gulp.src(['!./app/dist/vendors/', './app/dist/*'])
-        .pipe(clean());
-});
+gulp.task('clean', (callback) => del([config.distDir], callback));

@@ -101,7 +101,7 @@ export function fetchMessage(id) {
   };
 }
 
-export function fetchMessagesIfNeed(type) {
+export function fetchMessagesIfNeed(type = 'inbox') {
   return (dispatch, getState) => {
     if (shouldFetchMessages(getState(), type)) {
       return dispatch(fetchMessages(type));

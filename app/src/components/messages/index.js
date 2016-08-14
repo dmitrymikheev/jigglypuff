@@ -8,8 +8,9 @@ import MessagesStore from 'stores/messages';
 
 class List {
   constructor(params) {
+    const type = params[0];
     this.state = MessagesStore.getState().messages;
-    MessagesStore.dispatch(fetchMessagesIfNeed(params[0]));
+    MessagesStore.dispatch(fetchMessagesIfNeed(type));
 
     return Thunk(this.render.bind(this), this.state);
   }
