@@ -38,8 +38,23 @@ function message(state = initialState, action) {
   }
 }
 
+function notification(state = {}, action) {
+  switch (action.type) {
+    case CLEAR_MESSAGE:
+      return {
+        ...state,
+        message: action.message,
+        status: action.status,
+        isHidden: false
+      };
+    default:
+      return state;
+  }
+}
+
 const messageApp = combineReducers({
-  message
+  message,
+  notification
 });
 
 export default messageApp;

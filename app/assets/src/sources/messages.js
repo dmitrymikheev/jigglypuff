@@ -14,9 +14,9 @@ export default class MessagesSource {
       .then((xhr, response) => response);
   }
 
-  static update(email) {
+  static update(message) {
     return qwest
-      .put(`${this.urlRoot}/${email.id}`, { ...email })
+      .put(`${this.urlRoot}/${message.id}`, { ...message })
       .then((xhr, response) => response);
   }
 
