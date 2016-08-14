@@ -5,4 +5,10 @@
   background-image: url('/public/images/logo.png');
   background-repeat: no-repeat;
   text-indent: -99999px;
+
+  @media (max-width: $screen-tablet) {
+    width: 40px;
+    height: 47px;
+    background-size: 100%;
+  }
 }

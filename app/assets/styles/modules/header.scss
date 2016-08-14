@@ -8,4 +8,8 @@
   padding: 20px 25px;
   border-bottom: 1px solid #ccc;
   background: $white;
+
+  @media (max-width: $screen-tablet) {
+    padding: 10px 15px;
+  }
 }

@@ -14,4 +14,8 @@
   &--message {
     margin: 0 25px;
   }
+
+  @media (max-width: $screen-tablet) {
+    font-size: 12px;
+  }
 }

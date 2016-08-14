@@ -5,6 +5,7 @@
   width: 100px;
   height: 100%;
   border-right: 1px solid $border-color;
+  background: $white;
 
   &-list {
     margin: 0;
@@ -25,5 +26,24 @@
   &-icon.fa {
     display: block;
     margin-bottom: 5px;
+  }
+
+  @media (max-width: $screen-tablet) {
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    border-right: 0;
+    border-top: 1px solid $primary-color;
+
+    &-list {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    &-item {
+      margin: 0;
+      flex: 1 1 auto;
+    }
   }
 }

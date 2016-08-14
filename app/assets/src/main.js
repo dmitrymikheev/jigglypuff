@@ -7,8 +7,8 @@ import newMessage from 'components/newMessage';
 (() => {
   App.init([
     { url: '', component: HomePage },
-    { url: 'mail/:type', component: Messages },
-    { url: 'mail/:type/message/:id', component: Message },
-    { url: 'mail/new', component: newMessage }
+    { url: 'messages/:type', component: Messages },
+    { url: 'messages/:type/message/:id', component: Message },
+    { url: 'messages/new', component: newMessage }
   ]);
 })();

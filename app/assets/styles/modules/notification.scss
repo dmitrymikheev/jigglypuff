@@ -1,6 +1,6 @@
 .notification {
   position: fixed;
-  top: 20px;
+  top: 30px;
   right: 20px;
   padding: 10px;
   color: $white;
@@ -18,10 +18,10 @@
     display: block;
     background: $error-color;
   }
-}
 
-@keyframes hideAnimation {
-  0%   { opacity: 1; }
-  95%   { opacity: 1; }
-  100% { opacity: 0; }
+  @media (max-width: $screen-tablet) {
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
 }

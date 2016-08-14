@@ -1,4 +1,4 @@
-.mail {
+.messages {
   margin: 0 0 0 -15px;
   padding: 0;
   list-style: none;
@@ -36,5 +36,9 @@
 
   &-checkbox {
     cursor: pointer;
+  }
+
+  @media (max-width: $screen-tablet) {
+    margin: 0 -15px;
   }
 }

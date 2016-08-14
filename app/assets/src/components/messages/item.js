@@ -27,23 +27,23 @@ class Item {
       starred
     } = this.options;
     const className = classNames({
-      'mail-item': true,
-      'mail-item--starred': starred
+      'messages-item': true,
+      'messages-item--starred': starred
     });
 
     return (
       h('li', { className }, [
-        h('input.mail-checkbox', {
+        h('input.messages-checkbox', {
           type: 'checkbox',
           checked: selected,
           onchange: this.handeChange.bind(this)
         }),
-        h('i.mail-star.fa', {
+        h('i.messages-star.fa', {
           onclick: this.toggleStarred.bind(this, id)
         }),
         new Link(title, {
-          className: 'mail-link',
-          href: `/mail/${type}/message/${id}`
+          className: 'messages-link',
+          href: `/messages/${type}/message/${id}`
         })
       ])
     );

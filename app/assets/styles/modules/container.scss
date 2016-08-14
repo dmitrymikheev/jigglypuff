@@ -1,0 +1,7 @@
+.container {
+  padding: 105px 0 0 115px;
+
+  @media (max-width: $screen-tablet) {
+    padding: 68px 15px 64px;
+  }
+}

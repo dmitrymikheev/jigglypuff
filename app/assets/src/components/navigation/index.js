@@ -6,22 +6,22 @@ const NAV_ITEMS = [
   {
     icon: 'inbox',
     text: 'Inbox',
-    href: 'mail/inbox'
+    href: 'messages/inbox'
   },
   {
     icon: 'files-o',
     text: 'Draft',
-    href: 'mail/drafts'
+    href: 'messages/drafts'
   },
   {
     icon: 'star-o',
     text: 'Starred',
-    href: 'mail/starred'
+    href: 'messages/starred'
   },
   {
     icon: 'trash-o',
     text: 'Deleted',
-    href: 'mail/deleted'
+    href: 'messages/deleted'
   }
 ];
 

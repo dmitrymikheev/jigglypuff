@@ -16,7 +16,7 @@ class List {
 
   render() {
     return (
-      h('ul.mail', this.state.items.map(item => new Item(item)))
+      h('ul.messages', this.state.items.map(item => new Item(item)))
     );
   }
 }

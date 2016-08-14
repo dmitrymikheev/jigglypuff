@@ -20,7 +20,7 @@ class Header extends Component {
     return (
       h('.header', [
         new Link('Home', { href: '/', className: 'logo' }),
-        new Link('Write message', { href: '/mail/new', className: 'button button--message' }),
+        new Link('Write message', { href: '/messages/new', className: 'button button--message' }),
         new Dropdown({
           onSelect: this.hangeSelect
         })

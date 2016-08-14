@@ -36,4 +36,8 @@
       color: lighten($primary-color, 5);
     }
   }
+
+  @media (max-width: $screen-tablet) {
+    font-size: 12px
+  }
 }
