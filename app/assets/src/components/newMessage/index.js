@@ -1,11 +1,13 @@
 import h from 'virtual-dom/h';
 import Thunk from 'vdom-thunk';
-import { setField, sendMessage } from 'actions/message';
-import messageStore from 'stores/message';
+import { titleIsValid, messageIsValid } from 'helpers/validation';
+import Input from 'components/input';
+import { setField, sendMessage, submitMessage } from 'actions/message';
+import MessageStore from 'stores/message';
 
 class newMessage {
   constructor() {
-    this.state = messageStore.getState().message;
+    this.state = MessageStore.getState().message;
 
     return Thunk(this.render.bind(this), this.state);
   }
@@ -14,33 +16,46 @@ class newMessage {
     const name = event.target.name;
     const value = event.target.value;
 
-    messageStore.dispatch(setField(name, value));
+    MessageStore.dispatch(setField(name, value));
   }
 
   onSubmit(event) {
     event.preventDefault();
-    messageStore.dispatch(sendMessage());
+    const isValid = this.isValid(this.state.title, this.state.body);
+
+    if (isValid) {
+      MessageStore.dispatch(sendMessage());
+    }
+
+    MessageStore.dispatch(submitMessage());
+  }
+
+  isValid(title, message) {
+    return titleIsValid(title) && messageIsValid(message);
   }
 
   render() {
     return (
-      h('form.form', { onsubmit: this.onSubmit }, [
-        h('label.form-group', [
-          'Title',
-          h('input.form-control', {
-            name: 'title',
-            value: this.state.title,
-            onkeyup: this.onChangeField
-          })
-        ]),
-        h('label.form-group', [
-          'Message',
-          h('textarea.form-control', {
-            name: 'body',
-            value: this.state.body,
-            onkeyup: this.onChangeField
-          })
-        ]),
+      h('form.form', { onsubmit: this.onSubmit.bind(this) }, [
+        new Input({
+          label: 'Title',
+          className: 'form-control',
+          name: 'title',
+          value: this.state.title,
+          onChange: this.onChangeField,
+          validation: titleIsValid,
+          submitted: this.state.submitted
+        }),
+        new Input({
+          tag: 'textarea',
+          label: 'Message',
+          className: 'form-control',
+          name: 'body',
+          value: this.state.body,
+          onChange: this.onChangeField,
+          validation: messageIsValid,
+          submitted: this.state.submitted
+        }),
         h('.form-group', [
           h('button', { type: 'submit', className: 'button form-submit' }, 'Send')
         ])

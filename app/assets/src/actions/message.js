@@ -7,16 +7,17 @@ export function setField(field, value) {
     field,
     value,
     type: SET_FIELD
-  }
+  };
+}
+
+export const SUBMIT_MESSAGE = 'SUBMIT_MESSAGE';
+export function submitMessage() {
+  return { type: SUBMIT_MESSAGE };
 }
 
 export const CLEAR_MESSAGE = 'CLEAR_MESSAGE'
 export function clearMessage() {
-  return { type: CLEAR_MESSAGE }
-}
-
-export function saveMessage(message) {
-
+  return { type: CLEAR_MESSAGE };
 }
 
 export const SEND_MESSAGE = 'SEND_MESSAGE';

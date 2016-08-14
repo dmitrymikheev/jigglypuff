@@ -1,13 +1,14 @@
 import { combineReducers } from 'redux'
 import Storage from 'services/storage';
 import {
-  SEND_MESSAGE, SET_FIELD, CLEAR_MESSAGE
+  SEND_MESSAGE, SET_FIELD, CLEAR_MESSAGE, SUBMIT_MESSAGE
 } from 'actions/message';
 
 const initialState = {
   type: 'drafts',
   title: Storage.get('title') || '',
-  message: Storage.get('message') || ''
+  body: Storage.get('body') || '',
+  submitted: false
 }
 
 function message(state = initialState, action) {
@@ -20,10 +21,17 @@ function message(state = initialState, action) {
         [action.field]: action.value
       };
     case SEND_MESSAGE:
-      return state;
+      return {
+        ...state,
+        submitted: true
+      };
+    case SUBMIT_MESSAGE:
+      return {
+        ...state,
+        submitted: true
+      }
     case CLEAR_MESSAGE:
       Storage.clear();
-
       return initialState;
     default:
       return state;

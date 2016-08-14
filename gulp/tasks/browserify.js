@@ -25,7 +25,7 @@ gulp.task('browserify', () => {
     ]
   })
   .transform(babelify.configure({
-    presets: ['es2015', 'stage-2'],
+    presets: ['es2015', 'stage-0'],
     plugins: ['transform-decorators-legacy'],
     sourceMapRelative: 'app/'
   }));

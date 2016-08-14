@@ -132,7 +132,8 @@
       "vertical-align",
       "visibility",
       "z-index",
-      "appearance"
+      "appearance",
+      "resize"
     ],
     [">child"],
     ["@include breakpoint"],
