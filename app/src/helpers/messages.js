@@ -1,33 +1,7 @@
-import { omit } from 'lodash';
+import { omit, reject } from 'lodash';
 
 export function getSelectedMessages(messages) {
   return messages.filter(item => item.selected);
-}
-
-export function shouldFetchMessages(state, type) {
-  const items = state.messages.items;
-
-  if (!items.length && !state.messages.isFetching) {
-    return true;
-  } else if (type === 'starred' && !state.messages.isFetching) {
-    return items.some(item => !item.starred);
-  } else if (items.length && !state.messages.isFetching) {
-    return items.some(item => item.type !== type);
-  }
-
-  return false;
-}
-
-export function shouldFetchMessage(state, id) {
-  const message = state.messages.message;
-
-  if (!message.id && !state.messages.isFetching) {
-    return true;
-  } else if (message.id && !state.messages.isFetching) {
-    return message.id !== parseInt(id);
-  }
-
-  return false;
 }
 
 export function changeTypeMessages(messages, type) {
@@ -54,4 +28,25 @@ export function toggleStarredMessages(messages, starred) {
 
 export function prepareParams(type) {
   return type === 'starred' ? { starred: true } : { type };
+}
+
+export function updateMessage(messages, message) {
+  return messages.map(item => item.id === message.id ? message : item);
+}
+
+export function deleteMessage(messages, id) {
+  return reject(messages, (message) => message.type !== 'deleted' && message.id === id);
+}
+
+export function toggleMessageField(messages, field, id) {
+  return messages.map((message) => {
+    if (message.id === id) {
+      return {
+        ...message,
+        [field]: !message[field]
+      };
+    }
+
+    return message;
+  });
 }

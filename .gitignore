@@ -6,4 +6,5 @@ node_modules
 /log/*.log
 /tmp/*
 app/dist/*
+dist/*
 .env

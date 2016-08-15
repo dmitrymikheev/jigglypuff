@@ -15,7 +15,6 @@ function message(state = initialState, action) {
   switch (action.type) {
     case SET_FIELD:
       Storage.set(action.field, action.value);
-
       return {
         ...state,
         [action.field]: action.value

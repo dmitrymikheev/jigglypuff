@@ -1,3 +1,3 @@
 export const config = {
-  apiPath: '/api'
+  apiPath: 'http://jigglypuffapi.herokuapp.com'
 };

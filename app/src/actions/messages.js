@@ -1,13 +1,15 @@
 import qwest from 'qwest';
 import messagesSource from 'sources/messages';
 import {
-  shouldFetchMessages,
-  shouldFetchMessage,
   changeTypeMessages,
   toggleStarredMessages,
   getSelectedMessages,
   prepareParams
 } from 'helpers/messages';
+import {
+  shouldFetchMessages,
+  shouldFetchMessage
+} from 'helpers/fetch';
 
 export const MAKE_REQUEST = 'MAKE_REQUEST';
 export function makeRequest() {
