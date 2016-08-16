@@ -27,4 +27,4 @@ export default class MessagesSource {
   }
 }
 
-MessagesSource.urlRoot = `${config.apiPath}/messages`
+MessagesSource.urlRoot = `${config.apiPath}/messages`;

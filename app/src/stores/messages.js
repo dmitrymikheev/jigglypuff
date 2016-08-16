@@ -1,5 +1,5 @@
-import thunkMiddleware from 'redux-thunk'
-import createLogger from 'redux-logger'
+import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 import MessagesApp from 'reducers/messages';
 

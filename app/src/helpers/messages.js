@@ -31,7 +31,9 @@ export function prepareParams(type) {
 }
 
 export function updateMessage(messages, message) {
-  return messages.map(item => item.id === message.id ? message : item);
+  return messages.map(item => {
+    return item.id === message.id ? message : item;
+  });
 }
 
 export function deleteMessage(messages, id) {

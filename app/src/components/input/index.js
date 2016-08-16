@@ -1,16 +1,10 @@
 import h from 'virtual-dom/h';
-import Thunk from 'vdom-thunk';
+import ThunkComponent from 'components/base/thunk';
 import { capitalize } from 'lodash';
 
-class Input {
-  constructor(props) {
-    this.props = props;
-
-    return Thunk(this.render.bind(this), this.props);
-  }
-
-  renderError() {
-    const { value, validation } = this.props;
+class Input extends ThunkComponent {
+  getState() {
+    return this.props;
   }
 
   renderError() {

@@ -16,7 +16,7 @@ export function makeRequest() {
   return { type: MAKE_REQUEST };
 }
 
-export const FAILURE_REQUEST = 'FAILURE_REQUEST'
+export const FAILURE_REQUEST = 'FAILURE_REQUEST';
 export function failureRequest(message) {
   return {
     message,
@@ -40,7 +40,7 @@ export function receiveMessage(message) {
   return {
     message,
     type: RECEIVE_MESSAGE
-  }
+  };
 }
 
 export const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
@@ -48,7 +48,7 @@ export function updateMessage(message) {
   return {
     message,
     type: UPDATE_MESSAGE
-  }
+  };
 }
 
 export const SELECT_MESSAGE = 'SELECT_MESSAGE';
@@ -116,12 +116,12 @@ export function fetchMessageIfNeed(id) {
     if (shouldFetchMessage(getState(), id)) {
       return dispatch(fetchMessage(id));
     }
-  }
+  };
 }
 
 export function markAsStarred() {
   return (dispatch, getState) => {
-    const messages = getSelectedMessages(getState().messages.items)
+    const messages = getSelectedMessages(getState().messages.items);
 
     if (messages.length) {
       return dispatch(setStarredMessages(messages, true));
@@ -131,7 +131,7 @@ export function markAsStarred() {
 
 export function unmarkAsStarred() {
   return (dispatch, getState) => {
-    const messages = getSelectedMessages(getState().messages.items)
+    const messages = getSelectedMessages(getState().messages.items);
 
     if (messages.length) {
       return dispatch(setStarredMessages(messages, false));
@@ -144,7 +144,7 @@ export function markMessageAsImportant(id) {
     const message = getState().messages.items.filter(item => item.id === id);
 
     return dispatch(setStarredMessages(message));
-  }
+  };
 }
 
 export function setStarredMessages(messages, starred) {
@@ -166,7 +166,7 @@ export function deleteIfNeed() {
     if (selectedMessages.length) {
       return dispatch(deleteMessages(selectedMessages));
     }
-  }
+  };
 }
 
 export function deleteMessages(messages) {
@@ -178,5 +178,5 @@ export function deleteMessages(messages) {
         .update(message)
         .then(message => dispatch(deleteMessageFromStore(message.id)));
     });
-  }
+  };
 }

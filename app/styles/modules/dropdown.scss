@@ -18,10 +18,10 @@
     border: 1px solid $primary-color;
     background: $white;
     list-style: none;
+  }
 
-    &.opened {
-      display: block;
-    }
+  &-list--opened {
+    display: block;
   }
 
   &-item {

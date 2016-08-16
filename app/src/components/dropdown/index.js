@@ -1,7 +1,7 @@
 import h from 'virtual-dom/h';
-import Component from 'components';
+import Component from 'components/base';
 
-const OPENED_CLASS = 'opened';
+const OPENED_CLASS = 'dropdown-list--opened';
 
 class Dropdown extends Component {
   handleClick(event) {

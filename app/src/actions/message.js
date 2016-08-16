@@ -15,7 +15,7 @@ export function submitMessage() {
   return { type: SUBMIT_MESSAGE };
 }
 
-export const CLEAR_MESSAGE = 'CLEAR_MESSAGE'
+export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
 export function clearMessage() {
   return {
     type: CLEAR_MESSAGE,

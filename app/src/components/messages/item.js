@@ -1,17 +1,14 @@
 import h from 'virtual-dom/h';
 import classNames from 'classnames';
+import { routes } from 'helpers/routes';
+import Component from 'components/base';
 import Link from 'components/link';
 import { selectMessage, markMessageAsImportant } from 'actions/messages';
 import MessagesStore from 'stores/messages';
 
-class Item {
-  constructor(options) {
-    this.options = options;
-    return this.render();
-  }
-
+class Item extends Component {
   handeChange(event) {
-    MessagesStore.dispatch(selectMessage(this.options.id));
+    MessagesStore.dispatch(selectMessage(this.props.id));
   }
 
   toggleStarred(id) {
@@ -25,7 +22,7 @@ class Item {
       id,
       selected,
       starred
-    } = this.options;
+    } = this.props;
     const className = classNames({
       'messages-item': true,
       'messages-item--starred': starred
@@ -41,10 +38,10 @@ class Item {
         h('i.messages-star.fa', {
           onclick: this.toggleStarred.bind(this, id)
         }),
-        new Link(title, {
+        new Link({
           className: 'messages-link',
-          href: `/messages/${type}/message/${id}`
-        })
+          href: routes.message(id)
+        }, title)
       ])
     );
   }

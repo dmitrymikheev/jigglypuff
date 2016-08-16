@@ -1,15 +1,13 @@
 import h from 'virtual-dom/h';
-import Thunk from 'vdom-thunk';
+import ThunkComponent from 'components/base/thunk';
 import { titleIsValid, messageIsValid } from 'helpers/validation';
 import Input from 'components/input';
 import { setField, sendMessage, submitMessage } from 'actions/message';
 import MessageStore from 'stores/message';
 
-class newMessage {
-  constructor() {
-    this.state = MessageStore.getState().message;
-
-    return Thunk(this.render.bind(this), this.state);
+class NewMessage extends ThunkComponent {
+  getState() {
+    return MessageStore.getState().message;
   }
 
   onChangeField(event) {
@@ -64,4 +62,4 @@ class newMessage {
   }
 }
 
-export default newMessage;
+export default NewMessage;

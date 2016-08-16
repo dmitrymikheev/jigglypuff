@@ -1,6 +1,7 @@
 import h from 'virtual-dom/h';
+import { routes } from 'helpers/routes';
 import Link from 'components/link';
-import Component from 'components';
+import Component from 'components/base';
 import Dropdown from 'components/dropdown';
 import { markAsStarred, unmarkAsStarred, deleteIfNeed } from 'actions/messages';
 import MessagesStore from 'stores/messages';
@@ -19,13 +20,13 @@ class Header extends Component {
   render() {
     return (
       h('.header', [
-        new Link('Home', { href: '/', className: 'logo' }),
-        new Link('Write message', { href: '/messages/new', className: 'button button--message' }),
+        new Link({ href: routes.root(), className: 'logo' }, 'Home'),
+        new Link({ href: routes.newMessage(), className: 'button button--message' }, 'Write message'),
         new Dropdown({
           onSelect: this.hangeSelect
         })
       ])
-    )
+    );
   }
 }
 

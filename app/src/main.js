@@ -7,7 +7,7 @@ import newMessage from 'components/newMessage';
   App.init([
     { url: '', component: Messages },
     { url: 'messages/:type', component: Messages },
-    { url: 'messages/:type/message/:id', component: Message },
+    { url: 'message/:id', component: Message },
     { url: 'messages/new', component: newMessage }
   ]);
 })();

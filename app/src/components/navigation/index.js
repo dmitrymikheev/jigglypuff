@@ -1,43 +1,17 @@
 import h from 'virtual-dom/h';
-import createElement from 'virtual-dom/create-element';
+import Component from 'components/base';
+import { NAV_ITEMS } from 'helpers/routes';
 import Link from 'components/link';
 
-const NAV_ITEMS = [
-  {
-    icon: 'inbox',
-    text: 'Inbox',
-    href: 'messages/inbox'
-  },
-  {
-    icon: 'files-o',
-    text: 'Draft',
-    href: 'messages/drafts'
-  },
-  {
-    icon: 'star-o',
-    text: 'Starred',
-    href: 'messages/starred'
-  },
-  {
-    icon: 'trash-o',
-    text: 'Deleted',
-    href: 'messages/deleted'
-  }
-];
-
-export default class Navigation {
-  constructor(props) {
-    return this.render();
-  }
-
+class Navigation extends Component {
   renderNavItem(item) {
     const itemClass = `i.nav-icon.fa.fa-${item.icon}`;
 
     return (
       h('li.nav-item',
         new Link(
-          [ h(itemClass), item.text ],
-            { className: 'nav-link', href: item.href }
+          { className: 'nav-link', href: item.href },
+          [h(itemClass), item.text]
         )
       )
     );
@@ -53,3 +27,5 @@ export default class Navigation {
     );
   }
 }
+
+export default Navigation;

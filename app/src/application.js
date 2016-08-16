@@ -18,15 +18,12 @@ class App {
     this.tree = this.render();
     this.rootNode = createElement(this.tree);
 
-    document.body.appendChild(this.rootNode);
+    document.getElementById('root').appendChild(this.rootNode);
+    this.subscribeToStores([MessagesStore], [MessageStore]);
+  }
 
-    MessagesStore.subscribe(() => {
-      this.update();
-    });
-
-    MessageStore.subscribe(() => {
-      this.update();
-    });
+  subscribeToStores(stores) {
+    stores.forEach(store => store.subscribe(() => this.update()));
   }
 
   render() {

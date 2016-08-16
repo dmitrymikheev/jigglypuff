@@ -1,18 +1,18 @@
 import h from 'virtual-dom/h';
-import Thunk from 'vdom-thunk';
+import ThunkComponent from 'components/base/thunk';
 import Router from 'router';
 import Item from './item';
 import App from 'application';
 import { fetchMessagesIfNeed } from 'actions/messages';
 import MessagesStore from 'stores/messages';
 
-class List {
-  constructor(params) {
-    const type = params[0];
-    this.state = MessagesStore.getState().messages;
-    MessagesStore.dispatch(fetchMessagesIfNeed(type));
+class List extends ThunkComponent {
+  beforeRender() {
+    MessagesStore.dispatch(fetchMessagesIfNeed(this.props[0]));
+  }
 
-    return Thunk(this.render.bind(this), this.state);
+  getState() {
+    return MessagesStore.getState().messages;
   }
 
   render() {

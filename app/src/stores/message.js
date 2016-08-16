@@ -1,11 +1,11 @@
-import thunkMiddleware from 'redux-thunk'
-import createLogger from 'redux-logger'
+import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
-import messageApp from 'reducers/message';
+import MessageApp from 'reducers/message';
 
 const loggerMiddleware = createLogger();
-let messageStore = createStore(
-  messageApp,
+const messageStore = createStore(
+  MessageApp,
   applyMiddleware(
     thunkMiddleware,
     loggerMiddleware
