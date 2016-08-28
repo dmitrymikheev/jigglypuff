@@ -4,12 +4,11 @@ import { createStore, applyMiddleware } from 'redux';
 import MessageApp from 'reducers/message';
 
 const loggerMiddleware = createLogger();
-const messageStore = createStore(
+const MessageStore = createStore(
   MessageApp,
   applyMiddleware(
-    thunkMiddleware,
-    loggerMiddleware
+    thunkMiddleware
   )
 );
 
-export default messageStore;
+export default MessageStore;

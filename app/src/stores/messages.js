@@ -7,8 +7,7 @@ const loggerMiddleware = createLogger();
 const MessageStore = createStore(
   MessagesApp,
   applyMiddleware(
-    thunkMiddleware,
-    loggerMiddleware
+    thunkMiddleware
   )
 );
 

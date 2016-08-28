@@ -33,7 +33,6 @@ class Input extends Component {
     } = this.props;
     const tag = this.props.tag || 'input';
     const error = this.renderError();
-    console.log(error);
 
     return (
       h('label.form-group', [

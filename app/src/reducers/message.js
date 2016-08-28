@@ -1,7 +1,10 @@
 import { combineReducers } from 'redux';
 import Storage from 'services/storage';
 import {
-  SEND_MESSAGE, SET_FIELD, CLEAR_MESSAGE, SUBMIT_MESSAGE
+  SEND_MESSAGE,
+  SET_FIELD,
+  CLEAR_MESSAGE,
+  SUBMIT_MESSAGE
 } from 'actions/message';
 
 const initialState = {
@@ -31,7 +34,12 @@ function message(state = initialState, action) {
     };
   case CLEAR_MESSAGE:
     Storage.clear();
-    return initialState;
+    return {
+      type: 'drafts',
+      title: '',
+      body: '',
+      submitted: false
+    };
   default:
     return state;
   }

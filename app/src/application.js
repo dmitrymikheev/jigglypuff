@@ -18,7 +18,7 @@ class App {
     this.rootNode = createElement(this.tree);
 
     document.getElementById('root').appendChild(this.rootNode);
-    this.subscribeToStores([MessagesStore], [MessageStore]);
+    this.subscribeToStores([MessagesStore, MessageStore]);
   }
 
   subscribeToStores(stores) {

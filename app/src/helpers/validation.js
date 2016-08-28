@@ -3,5 +3,5 @@ export function titleIsValid(title) {
 }
 
 export function messageIsValid(message) {
-  return message.length > 10;
+  return message.length > 5;
 }
