@@ -42,7 +42,7 @@ gulp.task('browserify', () => {
       .pipe(gulp.dest(config.distDir));
   };
 
-  if (config.development) {
+  if (dev) {
     watchify(bundler).on('update', bundle);
   }
   else {

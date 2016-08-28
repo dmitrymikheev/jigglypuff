@@ -1,11 +1,11 @@
 import h from 'virtual-dom/h';
-import ThunkComponent from 'components/base/thunk';
+import Component from 'components/base';
 import { fetchMessageIfNeed } from 'actions/messages';
 import MessagesStore from 'stores/messages';
 
-class Message extends ThunkComponent {
+class Message extends Component {
   beforeRender() {
-    MessagesStore.dispatch(fetchMessageIfNeed(this.props[0]));
+    MessagesStore.dispatch(fetchMessageIfNeed(this.props));
   }
 
   getState() {

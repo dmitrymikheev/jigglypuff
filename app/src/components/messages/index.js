@@ -1,14 +1,16 @@
 import h from 'virtual-dom/h';
-import ThunkComponent from 'components/base/thunk';
+import Component from 'components/base';
 import Router from 'router';
 import Item from './item';
 import App from 'application';
 import { fetchMessagesIfNeed } from 'actions/messages';
 import MessagesStore from 'stores/messages';
 
-class List extends ThunkComponent {
+class List extends Component {
   beforeRender() {
-    MessagesStore.dispatch(fetchMessagesIfNeed(this.props[0]));
+    const type = this.props || 'inbox';
+
+    MessagesStore.dispatch(fetchMessagesIfNeed(type));
   }
 
   getState() {

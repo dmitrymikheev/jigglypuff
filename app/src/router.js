@@ -1,11 +1,18 @@
 import h from 'virtual-dom';
 import createElement from 'virtual-dom/create-element';
+import { clone } from 'lodash';
 import App from 'application';
 
 class Router {
   constructor() {
     this.routes = [];
     this.bindEvents();
+  }
+
+  init(routes) {
+    routes.forEach(route => {
+      this.routes.push(this.createRoute(route, route.child));
+    });
   }
 
   bindEvents() {
@@ -31,12 +38,6 @@ class Router {
     return this.clearSlashes(decodeURI(location.pathname));
   }
 
-  addRoutes(routes) {
-    routes.map(route => {
-      this.routes.push(this.createRoute(route, route.child));
-    });
-  }
-
   createRoute(route, child = null) {
     route = {
       pattern: new RegExp(`^${ route.url.replace(/:\w+/g, '(\\w+)') }$`),
@@ -50,15 +51,16 @@ class Router {
   }
 
   getCurrentComponent(path) {
-    let i = this.routes.length;
+    const routes = clone(this.routes);
+    const correctRoute = routes.reverse().find(route => path.match(route.pattern));
 
-    while ( i-- ) {
-      const args = path.match(this.routes[i].pattern);
+    if (correctRoute) {
+      const args = path.match(correctRoute.pattern).slice(1).join();
 
-      if (args) {
-        return new this.routes[i].component(args.slice(1), this.routes[i].child);
-      }
+      return new correctRoute.component(args, correctRoute.child);
     }
+
+    return this.go('/');
   }
 }
 

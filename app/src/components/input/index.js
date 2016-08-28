@@ -1,8 +1,8 @@
 import h from 'virtual-dom/h';
-import ThunkComponent from 'components/base/thunk';
+import Component from 'components/base';
 import { capitalize } from 'lodash';
 
-class Input extends ThunkComponent {
+class Input extends Component {
   getState() {
     return this.props;
   }
@@ -33,6 +33,7 @@ class Input extends ThunkComponent {
     } = this.props;
     const tag = this.props.tag || 'input';
     const error = this.renderError();
+    console.log(error);
 
     return (
       h('label.form-group', [

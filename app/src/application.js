@@ -12,8 +12,7 @@ import MessageStore from 'stores/message';
 import Router from 'router';
 
 class App {
-  init(components) {
-    Router.addRoutes(components);
+  start(components) {
     this.components = components;
     this.tree = this.render();
     this.rootNode = createElement(this.tree);

@@ -1,10 +1,10 @@
 import h from 'virtual-dom/h';
-import ThunkComponent from 'components/base/thunk';
+import Component from 'components/base';
 import { hideNotification } from 'actions/messages';
 import MessagesStore from 'stores/messages';
 import MessageStore from 'stores/message';
 
-class Notification extends ThunkComponent {
+class Notification extends Component {
   beforeRender() {
     this.hideNotification();
   }
@@ -17,7 +17,9 @@ class Notification extends ThunkComponent {
   }
 
   hideNotification() {
-    if (!this.state.isHidden) {
+    const { isHidden, message } = this.state;
+
+    if (!isHidden && message) {
       setTimeout(() => {
         MessagesStore.dispatch(hideNotification());
       }, 3000);

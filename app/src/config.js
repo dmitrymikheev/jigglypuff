@@ -1,3 +1,3 @@
 export const config = {
-  apiPath: 'http://jigglypuffapi.herokuapp.com'
+  apiPath: 'http://localhost:3000'
 };

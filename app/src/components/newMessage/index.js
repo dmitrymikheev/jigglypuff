@@ -1,11 +1,11 @@
 import h from 'virtual-dom/h';
-import ThunkComponent from 'components/base/thunk';
+import Component from 'components/base';
 import { titleIsValid, messageIsValid } from 'helpers/validation';
 import Input from 'components/input';
 import { setField, sendMessage, submitMessage } from 'actions/message';
 import MessageStore from 'stores/message';
 
-class NewMessage extends ThunkComponent {
+class NewMessage extends Component {
   getState() {
     return MessageStore.getState().message;
   }
