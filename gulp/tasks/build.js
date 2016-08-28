@@ -4,9 +4,12 @@ import config from '../config';
 
 gulp.task('build', (callback) => {
   runSequence(
-    'images',
-    'templates',
-    'scss',
+    'clean',
+    [
+      'copy',
+      'template',
+      'scss'
+    ],
     'browserify',
     callback
   );

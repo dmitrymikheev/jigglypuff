@@ -13,8 +13,3 @@ gulp.task('scss',() => {
     .pipe(autoprefixer('last 2 version'))
     .pipe(gulp.dest(`${config.distDir}/styles/`))
 });
-
-gulp.task('images', () => {
-  return gulp.src(`${config.appDir}/images/**/*`)
-    .pipe(gulp.dest(`${config.distDir}/images`));
-});

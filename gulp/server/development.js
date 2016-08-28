@@ -1,6 +1,5 @@
 import browserSync from 'browser-sync';
 import historyApiFallback from 'connect-history-api-fallback';
-import jsonServer from 'json-server';
 import config from '../config';
 
 export default () => {
