@@ -29,7 +29,7 @@ export function sendMessage() {
   return (dispatch, getState) => {
     const message = getState().message;
 
-    messagesSource
+    return messagesSource
       .create(message)
       .then((xhr, response) => dispatch(clearMessage()));
   };
