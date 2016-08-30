@@ -15,12 +15,12 @@ export default {
   singleRun: true,
   browsers: ['PhantomJS'],
   files: [
-    'test/*.js'
+    'tests/**/*.js'
   ],
   reporters: ['dots'],
   colors: true,
   preprocessors: {
-    'test/*.js': ['browserify']
+    'tests/**/*.js': ['browserify']
   },
   plugins: [
     'karma-mocha',

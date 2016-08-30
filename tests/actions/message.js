@@ -1,11 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import expect from 'expect';
-import nock from 'nock';
 import thunk from 'redux-thunk';
-import * as actions from '../app/src/actions/message';
-
-const middlewares = [ thunk ];
-const mockStore = configureMockStore(middlewares);
+import * as actions from 'actions/message';
 
 describe('message actions', () => {
   it('should create an action to set field in message', () => {
@@ -39,21 +35,32 @@ describe('message actions', () => {
   });
 });
 
-describe('async actions', () => {
-  afterEach(() => {
-    nock.cleanAll();
+const middlewares = [ thunk ];
+const mockStore = configureMockStore(middlewares);
+
+describe('async message actions', () => {
+  let server;
+
+  beforeEach(() => {
+    server = sinon.fakeServer.create();
+  });
+
+  afterEach(function () {
+    server.restore();
   });
 
   it('should create an action to send message', () => {
-    nock('http://localhost:3000').post('/messages');
+    server.respondWith('POST', 'http://localhost:3000/messages',
+      [201, { "Content-Type": "application/json" }, '']);
 
     const message = 'Message saved to drafts';
     const status = 'success';
     const expectedAction = [{ type: actions.CLEAR_MESSAGE, message, status }];
     const store = mockStore();
+    const req = store.dispatch(actions.sendMessage());
 
-    return store.dispatch(actions.sendMessage())
-      .then(() => {
+    server.respond();
+    return req.then(() => {
         expect(store.getActions()).toEqual(expectedAction);
       });
   });

@@ -86,7 +86,7 @@ export function fetchMessages(type) {
     dispatch(makeRequest());
     const params = prepareParams(type);
 
-    messagesSource
+    return messagesSource
       .fetch({ ...params })
       .then(messages => dispatch(receiveMessages(messages)))
       .catch((e, xhr, response) => dispatch(failureRequest(e.message)));
@@ -97,7 +97,7 @@ export function fetchMessage(id) {
   return dispatch => {
     dispatch(makeRequest());
 
-    messagesSource
+    return messagesSource
       .get(id)
       .then(message => dispatch(receiveMessage(message)));
   };
