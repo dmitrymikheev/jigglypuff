@@ -30,4 +30,37 @@ describe('message reducer', () => {
       notification: {}
     })
   });
+
+  it('should handle SEND_MESSAGE', () => {
+    expect(reducer({}, {
+      type: actions.SEND_MESSAGE
+    })).toEqual({
+      message: {
+        type: 'drafts',
+        title: '',
+        body: '',
+        submitted: true
+      },
+      notification: {}
+    })
+  });
+  it('should handle CLEAR_MESSAGE', () => {
+    expect(reducer({}, {
+      type: actions.CLEAR_MESSAGE,
+      message: 'Clear message',
+      status: 'success'
+    })).toEqual({
+      message: {
+        type: 'drafts',
+        title: '',
+        body: '',
+        submitted: false
+      },
+      notification: {
+        message: 'Clear message',
+        status: 'success',
+        isHidden: false
+      }
+    })
+  });
 });
