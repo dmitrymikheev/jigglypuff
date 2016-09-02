@@ -18,8 +18,14 @@ class List extends Component {
   }
 
   render() {
+    const { items } = this.state;
+
+    if (!items.length) {
+      return h('ul.messages', 'Empty List');
+    }
+
     return (
-      h('ul.messages', this.state.items.map(item => new Item(item)))
+      h('ul.messages', items.map(item => new Item(item)))
     );
   }
 }

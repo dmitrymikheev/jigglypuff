@@ -1,11 +1,18 @@
 export function shouldFetchMessages(state, type) {
-  const items = state.messages.items;
+  const {
+    items,
+    isFetching,
+    messageType,
+    receiveEmpty
+  } = state.messages;
 
-  if (!items.length && !state.messages.isFetching) {
+  if (!items.length && !isFetching && !receiveEmpty) {
     return true;
-  } else if (type === 'starred' && !state.messages.isFetching) {
+  } else if (messageType !== type && !isFetching) {
+    return true;
+  } else if (type === 'starred' && !isFetching) {
     return items.some(item => !item.starred);
-  } else if (items.length && !state.messages.isFetching) {
+  } else if (items.length && !isFetching) {
     return items.some(item => item.type !== type);
   }
 
@@ -13,11 +20,11 @@ export function shouldFetchMessages(state, type) {
 }
 
 export function shouldFetchMessage(state, id) {
-  const message = state.messages.message;
+  const { message, isFetching } = state.messages;
 
-  if (!message.id && !state.messages.isFetching) {
+  if (!message.id && !isFetching) {
     return true;
-  } else if (message.id && !state.messages.isFetching) {
+  } else if (message.id && !isFetching) {
     return message.id !== parseInt(id);
   }
 

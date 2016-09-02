@@ -12,8 +12,11 @@ import {
 } from 'helpers/fetch';
 
 export const MAKE_REQUEST = 'MAKE_REQUEST';
-export function makeRequest() {
-  return { type: MAKE_REQUEST };
+export function makeRequest(type) {
+  return {
+    type: MAKE_REQUEST,
+    messageType: type
+  };
 }
 
 export const FAILURE_REQUEST = 'FAILURE_REQUEST';
@@ -83,7 +86,7 @@ export function hideNotification() {
 
 export function fetchMessages(type) {
   return dispatch => {
-    dispatch(makeRequest());
+    dispatch(makeRequest(type));
     const params = prepareParams(type);
 
     return messagesSource

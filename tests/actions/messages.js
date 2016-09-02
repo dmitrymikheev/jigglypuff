@@ -6,10 +6,11 @@ import * as actions from 'actions/messages';
 describe('messages actions', () => {
   it('should create an action to make request', () => {
     const expectedAction = {
-      type: actions.MAKE_REQUEST
+      type: actions.MAKE_REQUEST,
+      messageType: 'inbox'
     };
 
-    expect(actions.makeRequest()).toEqual(expectedAction);
+    expect(actions.makeRequest('inbox')).toEqual(expectedAction);
   });
 
   it('should create an action to failue request', () => {
@@ -118,7 +119,10 @@ describe('async messages actions', () => {
     const message = 'Receive Messages';
     const status = 'success';
     const expectedActions = [
-      { type: actions.MAKE_REQUEST },
+      {
+        type: actions.MAKE_REQUEST,
+        messageType: 'inbox'
+      },
       {
         message,
         status,

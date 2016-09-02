@@ -60,7 +60,7 @@ class Router {
       return new correctRoute.component(args, correctRoute.child);
     }
 
-    return this.go('/');
+    return window.location.href = '/';
   }
 }
 

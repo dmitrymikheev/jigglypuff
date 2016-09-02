@@ -17,9 +17,11 @@ import {
 } from 'helpers/messages';
 
 const initialState = {
-  isFetching: false,
   items: [],
-  message: {}
+  message: {},
+  isFetching: false,
+  receiveEmpty: false,
+  messageType: 'inbox'
 };
 
 function messages(state = initialState, action) {
@@ -27,12 +29,14 @@ function messages(state = initialState, action) {
   case MAKE_REQUEST:
     return {
       ...state,
+      messageType: action.messageType,
       isFetching: true
     };
   case RECEIVE_MESSAGES:
     return {
       ...state,
       isFetching: false,
+      receiveEmpty: !action.items.length,
       items: action.items
     };
   case RECEIVE_MESSAGE:
