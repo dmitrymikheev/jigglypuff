@@ -89,6 +89,7 @@ function notification(state = {}, action) {
   case HIDE_NOTIFICATION:
     return {
       ...state,
+      message: '',
       isHidden: true
     };
   default:

@@ -1,10 +1,10 @@
 // import chai from 'chai';
 // import { expect } from 'chai';
-// import chaiVirtualDom from 'chai-virtual-dom';
+// import virtualDomChai from 'virtual-dom-chai';
 // import h from 'virtual-dom/h';
 // import Header from 'components/header';
 
-// chai.use(chaiVirtualDom);
+// chai.use(virtualDomChai);
 
 // describe('Link component', () => {
 //   it('it should look like link', () => {

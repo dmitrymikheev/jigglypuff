@@ -1,53 +1,37 @@
-import gulp from 'gulp';
-import rename from 'gulp-rename';
-import plumber from 'gulp-plumber';
-import browserify from 'browserify';
-import minifyify from 'minifyify';
-import babelify from 'babelify';
 import watchify from 'watchify';
+import browserify from 'browserify';
+import gulp from 'gulp';
 import source from 'vinyl-source-stream';
-import notify from 'gulp-notify';
-import dotenv from 'dotenv';
+import buffer from 'vinyl-buffer';
+import gutil from 'gulp-util';
+import sourcemaps from 'gulp-sourcemaps';
+import babelify from 'babelify';
+import { assign } from 'lodash';
 import config from '../config';
 
-dotenv.load();
-const dev = process.env.NODE_ENV === 'development';
-const entryPoint = `./${config.appDir}/src/main.js`;
+const customOpts = {
+  entries: [`./${config.appDir}/src/main.js`],
+  debug: true,
+  paths: [`${config.appDir}/src`]
+};
+const opts = assign({}, watchify.args, customOpts);
+const b = watchify(browserify(opts));
 
-gulp.task('browserify', () => {
-  const bundler = browserify({
-    cache: {},
-    packageCache: {},
-    fullPaths: true,
-    debug: dev,
-    extensions: ['.js'],
-    entries: entryPoint,
-    paths: [
-      `${config.appDir}/src`
-    ]
-  })
-  .transform(babelify.configure({
+b.transform(babelify.configure({
     presets: ['es2015', 'stage-0'],
     plugins: ['transform-decorators-legacy'],
     sourceMapRelative: config.appDir
   }));
+gulp.task('browserify', bundle);
+b.on('update', bundle);
+b.on('log', gutil.log);
 
-  const bundle = () => {
-    const bundleStream = bundler.bundle();
-
-    return bundleStream
-      .on('error', notify.onError())
-      .pipe(source(entryPoint))
-      .pipe(rename('app.js'))
-      .pipe(gulp.dest(config.distDir));
-  };
-
-  if (dev) {
-    watchify(bundler).on('update', bundle);
-  }
-  else {
-    bundler.plugin(minifyify, { map: false });
-  }
-
-  return bundle();
-});
+function bundle() {
+  return b.bundle()
+    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+    .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest(config.distDir));
+}

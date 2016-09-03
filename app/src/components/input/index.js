@@ -39,8 +39,8 @@ class Input extends Component {
         label,
         h(tag, {
           name,
-          className,
           value,
+          className,
           onchange: onChange
         }),
         error
