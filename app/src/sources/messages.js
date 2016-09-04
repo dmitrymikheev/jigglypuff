@@ -1,11 +1,19 @@
 import qwest from 'qwest';
 import { config } from 'config';
+import notifications from 'services/notifications';
 
 export default class MessagesSource {
   static fetch(params) {
     return qwest
       .get(this.urlRoot, { ...params })
-      .then((xhr, response) => response);
+      .then((xhr, response) => {
+        notifications.success('Receive messages');
+
+        return response;
+      })
+      .catch((e, xhr, response) => {
+        notifications.error(e.message);
+      });
   }
 
   static get(id) {
@@ -23,7 +31,11 @@ export default class MessagesSource {
   static create(message) {
     return qwest
       .post(this.urlRoot, { ...message })
-      .then((xhr, response) => response);
+      .then((xhr, response) => {
+        notifications.success('Message saved to drafts');
+
+        return response;
+      });
   }
 }
 

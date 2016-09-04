@@ -1,7 +1,5 @@
-import { combineReducers } from 'redux';
 import {
   MAKE_REQUEST,
-  FAILURE_REQUEST,
   RECEIVE_MESSAGES,
   RECEIVE_MESSAGE,
   UPDATE_MESSAGE,
@@ -70,36 +68,4 @@ function messages(state = initialState, action) {
   }
 }
 
-function notification(state = {}, action) {
-  switch (action.type) {
-  case RECEIVE_MESSAGES:
-    return {
-      ...state,
-      message: action.message,
-      status: action.status,
-      isHidden: false
-    };
-  case FAILURE_REQUEST:
-    return {
-      ...state,
-      message: action.message,
-      status: action.status,
-      isHidden: false
-    };
-  case HIDE_NOTIFICATION:
-    return {
-      ...state,
-      message: '',
-      isHidden: true
-    };
-  default:
-    return state;
-  }
-}
-
-const MessagesApp = combineReducers({
-  messages,
-  notification
-});
-
-export default MessagesApp;
+export default messages;

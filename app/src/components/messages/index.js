@@ -14,15 +14,13 @@ class List extends Component {
   }
 
   getState() {
-    return MessagesStore.getState().messages;
+    return MessagesStore.getState();
   }
 
   render() {
     const { items } = this.state;
 
-    if (!items.length) {
-      return h('ul.messages', 'Empty List');
-    }
+    if (!items.length) return h('ul.messages.messages--empty', 'Empty List');
 
     return (
       h('ul.messages', items.map(item => new Item(item)))

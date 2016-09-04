@@ -5,62 +5,45 @@ import * as actions from 'actions/message';
 describe('message reducer', () => {
   it('should return initial state', () => {
     expect(reducer(undefined, {})).toEqual({
-      message: {
-        type: 'drafts',
-        title: '',
-        body: '',
-        submitted: false
-      },
-      notification: {}
+      type: 'drafts',
+      title: '',
+      body: '',
+      submitted: false
     })
   });
 
   it('should handle SET_FIELD', () => {
-    expect(reducer({}, {
+    expect(reducer(undefined, {
       type: actions.SET_FIELD,
       field: 'title',
       value: 'title'
     })).toEqual({
-      message: {
-        type: 'drafts',
-        title: 'title',
-        body: '',
-        submitted: false
-      },
-      notification: {}
-    })
+      type: 'drafts',
+      title: 'title',
+      body: '',
+      submitted: false
+    });
   });
 
   it('should handle SEND_MESSAGE', () => {
-    expect(reducer({}, {
+    expect(reducer(undefined, {
       type: actions.SEND_MESSAGE
     })).toEqual({
-      message: {
-        type: 'drafts',
-        title: '',
-        body: '',
-        submitted: true
-      },
-      notification: {}
-    })
+      type: 'drafts',
+      title: '',
+      body: '',
+      submitted: true
+    });
   });
+
   it('should handle CLEAR_MESSAGE', () => {
     expect(reducer({}, {
-      type: actions.CLEAR_MESSAGE,
-      message: 'Clear message',
-      status: 'success'
+      type: actions.CLEAR_MESSAGE
     })).toEqual({
-      message: {
-        type: 'drafts',
-        title: '',
-        body: '',
-        submitted: false
-      },
-      notification: {
-        message: 'Clear message',
-        status: 'success',
-        isHidden: false
-      }
-    })
+      type: 'drafts',
+      title: '',
+      body: '',
+      submitted: false
+    });
   });
 });

@@ -7,7 +7,7 @@ import MessageStore from 'stores/message';
 
 class NewMessage extends Component {
   getState() {
-    return MessageStore.getState().message;
+    return MessageStore.getState();
   }
 
   onChangeField(event) {

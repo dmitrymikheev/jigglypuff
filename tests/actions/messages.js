@@ -13,17 +13,6 @@ describe('messages actions', () => {
     expect(actions.makeRequest('inbox')).toEqual(expectedAction);
   });
 
-  it('should create an action to failue request', () => {
-    const message = 'Some fail';
-    const expectedAction = {
-      message,
-      type: actions.FAILURE_REQUEST,
-      status: 'error'
-    };
-
-    expect(actions.failureRequest(message)).toEqual(expectedAction);
-  });
-
   it('should create an action to receive messages', () => {
     const items = [{
       id: 1,
@@ -33,9 +22,7 @@ describe('messages actions', () => {
     }];
     const expectedAction = {
       items,
-      type: actions.RECEIVE_MESSAGES,
-      message: 'Receive Messages',
-      status: 'success'
+      type: actions.RECEIVE_MESSAGES
     };
 
     expect(actions.receiveMessages(items)).toEqual(expectedAction);
@@ -116,16 +103,12 @@ describe('async messages actions', () => {
     server.respondWith('GET', 'http://localhost:3000/messages?type=inbox',
       [200, { "Content-Type": "application/json" }, '[{ "id": "0", "title": "Lorem" }]']);
 
-    const message = 'Receive Messages';
-    const status = 'success';
     const expectedActions = [
       {
         type: actions.MAKE_REQUEST,
         messageType: 'inbox'
       },
       {
-        message,
-        status,
         type: actions.RECEIVE_MESSAGES,
         items: [{ id: '0', title: 'Lorem' }]
       }

@@ -19,22 +19,11 @@ export function makeRequest(type) {
   };
 }
 
-export const FAILURE_REQUEST = 'FAILURE_REQUEST';
-export function failureRequest(message) {
-  return {
-    message,
-    type: FAILURE_REQUEST,
-    status: 'error'
-  };
-}
-
 export const RECEIVE_MESSAGES = 'RECEIVE_MESSAGES';
 export function receiveMessages(items) {
   return {
     items,
-    type: RECEIVE_MESSAGES,
-    message: 'Receive Messages',
-    status: 'success'
+    type: RECEIVE_MESSAGES
   };
 }
 
@@ -91,8 +80,7 @@ export function fetchMessages(type) {
 
     return messagesSource
       .fetch({ ...params })
-      .then(messages => dispatch(receiveMessages(messages)))
-      .catch((e, xhr, response) => dispatch(failureRequest(e.message)));
+      .then(messages => dispatch(receiveMessages(messages)));
   };
 }
 
@@ -111,6 +99,8 @@ export function fetchMessagesIfNeed(type = 'inbox') {
     if (shouldFetchMessages(getState(), type)) {
       return dispatch(fetchMessages(type));
     }
+
+    return Promise.resolve();
   };
 }
 

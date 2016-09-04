@@ -9,7 +9,7 @@ class Message extends Component {
   }
 
   getState() {
-    return MessagesStore.getState().messages.message;
+    return MessagesStore.getState().message;
   }
 
   getAuthor() {

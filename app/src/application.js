@@ -6,9 +6,10 @@ import Thunk from 'vdom-thunk';
 import Navigation from 'components/navigation';
 import Header from 'components/header';
 import Messages from 'components/messages';
-import Notification from 'components/notification';
+import Notifications from 'components/notifications';
 import MessagesStore from 'stores/messages';
 import MessageStore from 'stores/message';
+import NotificationsStore from 'stores/notifications';
 import Router from 'router';
 
 class App {
@@ -16,13 +17,14 @@ class App {
     this.components = components;
     this.tree = this.render();
     this.rootNode = createElement(this.tree);
+    this.stores = [MessagesStore, MessageStore, NotificationsStore];
 
     document.getElementById('root').appendChild(this.rootNode);
-    this.subscribeToStores([MessagesStore, MessageStore]);
+    this.subscribeToStores();
   }
 
-  subscribeToStores(stores) {
-    stores.forEach(store => store.subscribe(() => this.update()));
+  subscribeToStores() {
+    this.stores.forEach(store => store.subscribe(() => this.update()));
   }
 
   render() {
@@ -32,7 +34,7 @@ class App {
       h('.app', [
         new Header,
         new Navigation,
-        new Notification,
+        new Notifications,
         h('.container', this.children)
       ])
     );

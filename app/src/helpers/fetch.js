@@ -4,7 +4,7 @@ export function shouldFetchMessages(state, type) {
     isFetching,
     messageType,
     receiveEmpty
-  } = state.messages;
+  } = state;
 
   if (!items.length && !isFetching && !receiveEmpty) {
     return true;
@@ -20,7 +20,7 @@ export function shouldFetchMessages(state, type) {
 }
 
 export function shouldFetchMessage(state, id) {
-  const { message, isFetching } = state.messages;
+  const { message, isFetching } = state;
 
   if (!message.id && !isFetching) {
     return true;
