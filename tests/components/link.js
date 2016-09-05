@@ -6,8 +6,8 @@ import Link from 'components/link';
 
 chai.use(chaiVirtualDom);
 
-describe('Link component', () => {
-  it('it should look like link', () => {
+describe('Link', () => {
+  it('looks like hyperlink', () => {
     const link = new Link({ href: '/', className: 'link' }, 'My Link');
     const expectedLink = h('a', {
       className: 'link',

@@ -2,8 +2,8 @@ import expect from 'expect';
 import reducer from 'reducers/message';
 import * as actions from 'actions/message';
 
-describe('message reducer', () => {
-  it('should return initial state', () => {
+describe('Message', () => {
+  it('return initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       type: 'drafts',
       title: '',
@@ -12,7 +12,7 @@ describe('message reducer', () => {
     })
   });
 
-  it('should handle SET_FIELD', () => {
+  it('handle SET_FIELD action', () => {
     expect(reducer(undefined, {
       type: actions.SET_FIELD,
       field: 'title',
@@ -25,7 +25,7 @@ describe('message reducer', () => {
     });
   });
 
-  it('should handle SEND_MESSAGE', () => {
+  it('handle SEND_MESSAGE action', () => {
     expect(reducer(undefined, {
       type: actions.SEND_MESSAGE
     })).toEqual({
@@ -36,7 +36,7 @@ describe('message reducer', () => {
     });
   });
 
-  it('should handle CLEAR_MESSAGE', () => {
+  it('handle CLEAR_MESSAGE action', () => {
     expect(reducer({}, {
       type: actions.CLEAR_MESSAGE
     })).toEqual({
